@@ -75,4 +75,6 @@ CREATE TABLE IF NOT EXISTS purchase (
     FOREIGN KEY (_uid) REFERENCES user(_uid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+--Modifying database
+
 
