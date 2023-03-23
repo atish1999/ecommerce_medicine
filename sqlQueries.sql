@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
 	_email varchar(30) UNIQUE,
 	_name varchar(50),
     _phno varchar(10),
-    constraint _ck_phno check (_phno like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+    constraint _cku_phno check (_phno like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
 
 -- 2. Shop Owner
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS shopowner (
 	_email varchar(30) UNIQUE,
 	_name varchar(50),
     _phno varchar(10),
-    constraint _ck_phno check (_phno like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+    constraint _cks_phno check (_phno like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
 
 -- 3. Doctor
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS doctor (
 	_email varchar(30) UNIQUE,
 	_name varchar(50),
     _phno varchar(10),
-    constraint _ck_phno check (_phno like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+    constraint _ckd_phno check (_phno like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
 
 -- 4. Blog
