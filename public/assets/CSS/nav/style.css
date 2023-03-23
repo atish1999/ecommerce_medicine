@@ -1,4 +1,4 @@
-.nav{
+.navBar{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,5 +21,6 @@
 .navElem{
     margin-right: 1.5rem;
     text-decoration: none;
+    font-size: 120%;
     color: white;
 }
