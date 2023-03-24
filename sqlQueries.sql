@@ -8,9 +8,9 @@ use medilab;
 
 CREATE TABLE IF NOT EXISTS users (
 	_uid int PRIMARY KEY AUTO_INCREMENT,
-	_password varchar(25),
-	_address varchar(100),
-	_email varchar(30) UNIQUE,
+	_password varchar(100),
+	_address varchar(250),
+	_email varchar(50) UNIQUE,
 	_name varchar(50),
     _phno varchar(15)
 );
@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS shopowner (
 	_oid int PRIMARY KEY AUTO_INCREMENT,
     _pci varchar(20) UNIQUE,
-	_password varchar(25),
-	_address varchar(100),
-	_email varchar(30) UNIQUE,
+	_password varchar(100),
+	_address varchar(250),
+	_email varchar(50) UNIQUE,
 	_name varchar(50),
     _phno varchar(15)
 );
@@ -32,9 +32,9 @@ CREATE TABLE IF NOT EXISTS shopowner (
 CREATE TABLE IF NOT EXISTS doctor (
 	_did int PRIMARY KEY AUTO_INCREMENT,
     _mci varchar(20) UNIQUE,
-	_password varchar(25),
-	_address varchar(100),
-	_email varchar(30) UNIQUE,
+	_password varchar(100),
+	_address varchar(250),
+	_email varchar(50) UNIQUE,
 	_name varchar(50),
     _phno varchar(15)
 );
