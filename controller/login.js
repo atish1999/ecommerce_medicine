@@ -6,17 +6,6 @@ function loginGet(req,res){
 }
 
 async function loginPost(req,res){
-    // let {role,email,password}=req.body;
-    // console.log(role);
-    // console.log(email);
-    // console.log(password);
-    // if(role==="users"){
-    //     res.redirect('/user');
-    // }else if(role==="doctor"){
-    //     res.redirect('/doctor')
-    // }else{
-    //     res.redirect('/shopOwner')
-    // }
     try {
         let {role,email,password}=req.body;
         let sql="select * from "+role+" where _email=?;";

@@ -2,6 +2,9 @@
     <title>Signup</title>
 </head>
 <body>
+  <% if (message!='') { %>
+    <h2><%= message %></h2>
+   <% } %>
     <form method="post" action="/auth/shopOwnerRegister">
         <div class="form-group">
           <input type="text" name="name" class="form-control" placeholder="Your Name" autocomplete="off" required>
@@ -11,22 +14,27 @@
         </div>
         <div class="form-group">
             <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off" required>
-          </div>
-          <div class="form-group">
-            <input type="text" name="pci" class="form-control" placeholder="PCI Certificate Number" autocomplete="off" required>
-          </div>
-          <div class="form-group">
-            <input type="text" name="mobNumber" class="form-control" placeholder="Your Number" autocomplete="off" required>
-          </div>
-          <div class="form-group">
-            <input type="text" name="sa" class="form-control" placeholder="Street Address" autocomplete="off" required>
-          </div>
-          <div class="form-group">
-            <input type="text" name="city" class="form-control" placeholder="City" autocomplete="off" required>
-          </div>
-          <div class="form-group">
-            <input type="text" name="pa" class="form-control" placeholder="Postal/Zip Code" autocomplete="off" required>
-          </div>
+            <ul>
+              <li>Password must be of 8 characters minimum and 100 characters maximum</li>
+              <li>Password must contain atleast 1 upper, lower case character and a digit</li>
+              <li>Password must not include space</li>
+            </ul>
+        </div>
+        <div class="form-group">
+          <input type="text" name="pci" class="form-control" placeholder="PCI Certificate Number" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="mobNumber" class="form-control" placeholder="Your Number" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="sa" class="form-control" placeholder="Street Address" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="city" class="form-control" placeholder="City" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="pa" class="form-control" placeholder="Postal/Zip Code" autocomplete="off" required>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       

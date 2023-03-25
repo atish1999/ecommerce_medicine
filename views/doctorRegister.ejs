@@ -3,6 +3,9 @@
     <title>Signup</title>
 </head>
 <body>
+  <% if (message!='') { %>
+    <h2><%= message %></h2>
+   <% } %>
     <form method="post" action="/auth/doctorRegister">
         <div class="form-group">
           <input type="text" name="name" class="form-control" placeholder="Your Name" autocomplete="off" required>
@@ -12,6 +15,11 @@
         </div>
         <div class="form-group">
             <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off" required>
+            <ul>
+              <li>Password must be of 8 characters minimum and 100 characters maximum</li>
+              <li>Password must contain atleast 1 upper, lower case character and a digit</li>
+              <li>Password must not include space</li>
+            </ul>
           </div>
           <div class="form-group">
             <input type="text" name="mci" class="form-control" placeholder="MCI Certificate Number" autocomplete="off" required>

@@ -1,14 +1,26 @@
 const express=require("express");
+const cookieParser=require('cookie-parser');
+const session=require('express-session');
+const flash=require('connect-flash');
 const app=express();
 require('dotenv').config();
-const {PORT}=require("./config");
+const {PORT,SECRET}=require("./config");
 const router=require("./routes/index")
+
 
 app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
+app.use(cookieParser(SECRET));
+app.use(session({
+  secret: SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 30 * 60 }
+}));
+app.use(flash());
 
 app.all('/', (req, res) => {
     res.render('home');

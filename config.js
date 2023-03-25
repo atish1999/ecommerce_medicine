@@ -7,7 +7,10 @@ const DB = {
     database: 'medilab'
 };
 
+const SECRET="flsjishgjsujwiskhfyeh";
+
 module.exports={
     PORT,
-    DB
+    DB,
+    SECRET
 }
