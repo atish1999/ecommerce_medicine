@@ -2,7 +2,8 @@ const medilabDatabase=require('../models/db');
 const bcrypt=require('bcrypt');
 
 function loginGet(req,res){
-    res.render('login');
+    let message=req.flash('error');
+    res.render('login',{message});
 }
 
 async function loginPost(req,res){
@@ -13,7 +14,11 @@ async function loginPost(req,res){
             if(err){
                 throw err;
             }
-            console.log(result);
+            if(result.length==0){
+                req.flash('error','no such user exit');
+                res.redirect('/auth/login');
+                return;
+            }
             bcrypt.compare(password, result[0]._password, function(err, response) {
                 if (err){
                     // for now logging the message
@@ -32,14 +37,17 @@ async function loginPost(req,res){
                     }
                 } else {
                   // response is OutgoingMessage object that server response http request
-                  console.log("paswords do not match");
-                //   res.flash('error','Passwords do not match');
+                  req.flash('error','Password do not match');
+                  res.redirect('/auth/login');
+                  return;
+                  //   res.flash('error','Passwords do not match');
                 }
               });
         })
     } catch (err) {
-        // res.flash('error',err.message);
-        console.log(err.message);
+        res.flash('error',err.message);
+        res.redirect('/auth/login');
+        return;
     }
 }
 
