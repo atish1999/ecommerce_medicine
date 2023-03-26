@@ -2,7 +2,7 @@ const medilabDatabase=require('../models/db');
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const {JWT_SECRET}=require('../config');
-const {sendMailUtil}=require('./utilityFunctions');
+const {sendMailUtil,schema}=require('./utilityFunctions');
 
 
 function loginGet(req,res){
@@ -137,6 +137,16 @@ async function resetPasswordPost(req,res){
     try {
         const {id,role,token}=req.params;
         let {password,confirmPassword}=req.body;
+        let isValid=schema.validate(password,{list:true});
+        if(isValid.length>0){
+            let message = isValid.map((elem)=>{
+                return passwordErrorsMessages[elem];
+            })
+            message=''.concat(...message);
+            req.flash('error',message);
+            res.redirect(`/auth/resetPassword/${id}/${role}/${token}`);
+            return;
+        }
         if(password!==confirmPassword){
             req.flash('error','Password and Confirm Password do not match');
             res.redirect(`/auth/resetPassword/${id}/${role}/${token}`);
