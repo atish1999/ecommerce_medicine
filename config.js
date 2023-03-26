@@ -3,9 +3,9 @@ PORT=process.env.PORT || 3000;
 // add database configuration in the env file
 const DB = {
     host: 'localhost',
-    user: process.env.user,
-    password: process.env.password,
-    database: process.env.database
+    user: 'amish',
+    password: 'aks32216',
+    database: 'medilab'
 };
 
 const SECRET="flsjishgjsujwiskhfyeh";

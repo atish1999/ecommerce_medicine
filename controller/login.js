@@ -124,7 +124,8 @@ function resetPasswordGet(req,res){
             let dbPassword=result[0]._password;
             const secret=JWT_SECRET+dbPassword;
             const payload=jwt.verify(token,secret);
-            res.render('resetPassword',{email:email});
+            let message=req.flash('error');
+            res.render('resetPassword',{email:email,message:message});
         });
     } catch (error) {
         console.log(error.message);
@@ -132,10 +133,15 @@ function resetPasswordGet(req,res){
     }
 }
 
-function resetPasswordPost(req,res){
+async function resetPasswordPost(req,res){
     try {
         const {id,role,token}=req.params;
-        const {password,confirmPassword}=req.body;
+        let {password,confirmPassword}=req.body;
+        if(password!==confirmPassword){
+            req.flash('error','Password and Confirm Password do not match');
+            res.redirect(`/auth/resetPassword/${id}/${role}/${token}`);
+            return;
+        }
         let strId;
         if(role==="users"){
             strId='_uid';
@@ -144,6 +150,9 @@ function resetPasswordPost(req,res){
         }else{
             strId='_oid';
         }
+        let salt=await bcrypt.genSalt(10);
+        let hash=await bcrypt.hash(password,salt);
+        password=hash;
         let sql='select * from '+role+' where '+strId+'=?';
         medilabDatabase.query(sql,[id],(err,result)=>{
             if(err){
