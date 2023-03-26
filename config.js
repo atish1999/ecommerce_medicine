@@ -8,9 +8,11 @@ const DB = {
 };
 
 const SECRET="flsjishgjsujwiskhfyeh";
+const JWT_SECRET="thisissecretforjsonwebtoken";
 
 module.exports={
     PORT,
     DB,
-    SECRET
+    SECRET,
+    JWT_SECRET
 }

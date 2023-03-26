@@ -21,7 +21,7 @@ const passwordErrorsMessages = {
     blank: 'Password should not be blank. '
 }
 
-function sendMail(to,subject,message){
+function sendMailUtil(to,subject,message){
     let transporter=nodemailer.createTransport({
         service:'gmail',
         auth:{
@@ -52,7 +52,7 @@ function passwordCheck(password){
 }
 
 module.exports={
-    sendMail,
+    sendMailUtil,
     passwordCheck,
     passwordErrorsMessages,
     schema

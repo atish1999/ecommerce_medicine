@@ -1,6 +1,6 @@
 const medilabDatabse=require('../models/db');
 const bcrypt=require("bcrypt");
-const {sendMail,passwordCheck,schema,passwordErrorsMessages}=require('./utilityFunctions');
+const {sendMailUtil,passwordCheck,schema,passwordErrorsMessages}=require('./utilityFunctions');
 
 
 function doctorGet(req,res){
@@ -24,7 +24,7 @@ async function doctorPost(req,res){
     let salt=await bcrypt.genSalt(10);
     let hash=await bcrypt.hash(password,salt);
     password=hash;
-    sendMail(email,'Registered to Medilab',"Welcome to Medilab\n.Thankyou for registering to our website.")
+    sendMailUtil(email,'Registered to Medilab',"Welcome to Medilab.\nThankyou for registering to our website.")
     let sql='insert into doctor(_mci,_password,_address,_email,_name,_phno) values(?,?,?,?,?,?);';
     medilabDatabse.query(sql,[mci,password,address,email,name,mobNumber],(err,result)=>{
         if(err){
