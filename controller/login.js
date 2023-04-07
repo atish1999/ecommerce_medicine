@@ -16,7 +16,7 @@ async function loginPost(req,res){
         let sql="select * from "+role+" where _email=?;";
         medilabDatabase.query(sql,[email],(err,result)=>{
             if(err){
-                throw err;
+                return res.status(500).send("Server Error. Try Again after some time");
             }
             if(result.length==0){
                 req.flash('error','no such user exit');
@@ -26,12 +26,16 @@ async function loginPost(req,res){
             bcrypt.compare(password, result[0]._password, function(err, response) {
                 if (err){
                     // for now logging the message
-                    console.log(err.message);
+                    // console.log(err.message);
+                    // return;
+                    res.flash('error',err.message);
+                    res.redirect('/auth/login');
                     return;
-                    // res.flash('error',err.message);
                 }
+                let userName=result[0]._name;
                 if (response) {
                     // res.cookie('isLoggedIn',true);
+                    req.flash('userName',userName);
                     if(role==="users"){
                         res.redirect('/user');
                     }else if(role==="doctor"){

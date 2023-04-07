@@ -35,7 +35,8 @@ async function userPost(req,res){
 }
 
 function userHome(req,res){
-    res.render('user');
+    let userName=req.flash('userName');
+    res.render('user',{userName});
 }
 
 module.exports={

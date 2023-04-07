@@ -23,7 +23,7 @@ async function shopOwnerPost(req,res){
     let salt=await bcrypt.genSalt(10);
     let hash=await bcrypt.hash(password,salt);
     password=hash;
-    sendMailUtil(email,'Registered to Medilab',"Welcome to Medilab.\nThankyou for registering to our website.")
+    sendMailUtil(email,'Registered to Medilab',`Hello ${name}, Welcome to Medilab.\nThank You for registering to our website.`)
     let sql='insert into shopowner(_pci,_password,_address,_email,_name,_phno) values(?,?,?,?,?,?);';
     medilabDatabase.query(sql,[pci,password,address,email,name,mobNumber],(err,result)=>{
         if(err){
@@ -34,7 +34,8 @@ async function shopOwnerPost(req,res){
 }
 
 function shopOwnerHome(req,res){
-    res.render('shopOwner');
+    let userName=req.flash('userName');
+    res.render('shopOwner',{userName});
 }
 
 module.exports={
