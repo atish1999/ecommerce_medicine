@@ -1,6 +1,12 @@
 const nodemailer=require('nodemailer');
 const passwordValidator = require('password-validator');
 const schema = new passwordValidator();
+const path=require('path');
+const jwt=require('jsonwebtoken');
+const {JWT_SECRET}=require('../config');
+const medilabDatabse=require('../models/db');
+
+
 
 // adding properties to password
 schema
@@ -33,7 +39,15 @@ function sendMailUtil(to,subject,message){
     let mailOptions={
         to:to,
         subject:subject,
-        text:message
+        text:message,
+        attachments: [
+            {
+                filename: 'medilab.png',
+                path: path.join(__dirname,'..','public/medilab.png'),
+                cid:'img'
+            }
+        ],
+        html: `<p>${message} </p><img style="width:250px;" src="cid:img">`
     };
 
     transporter.sendMail(mailOptions,(err,success)=>{
@@ -51,9 +65,64 @@ function passwordCheck(password){
     return password.match(ps);
 }
 
+function requireAuth(req,res,next){
+    const token=req.cookies.jwt;
+    // check if jwt exit & is verified
+    if(token){
+        jwt.verify(token,JWT_SECRET,(err,decodedToken)=>{
+            if(err){
+                console.log(err.message);
+                res.redirect('/auth/login');
+            }else{
+                console.log(decodedToken);
+                next();
+            }
+
+        });
+    }
+    else{
+        res.redirect('/auth/login');
+    }
+}
+
+function checkUser(req,res,next){
+    const token=req.cookies.jwt;
+    if(token){
+        jwt.verify(token,JWT_SECRET,async (err,decodedToken)=>{
+            if(err){
+                console.log(err.message);
+                res.locals.user=null;
+                next();
+            }
+            else{
+                console.log(decodedToken);
+                let role=decodedToken.role;
+                let email=decodedToken.email;
+                let sql='select * from '+role+' where _email=?';
+                medilabDatabse.query(sql,[email],(err,result)=>{
+                    if(err){
+                        console.log(err);
+                        res.locals.user=null;
+                        next();
+                    }
+                    console.log(result);
+                    res.locals.user=result;
+                    next();
+                })
+            }
+        })
+    }
+    else{
+        res.locals.user=null;
+        next();
+    }
+}
+
 module.exports={
     sendMailUtil,
     passwordCheck,
     passwordErrorsMessages,
-    schema
+    schema,
+    requireAuth,
+    checkUser
 }

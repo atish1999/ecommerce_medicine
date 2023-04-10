@@ -2,10 +2,12 @@ const express=require("express");
 const cookieParser=require('cookie-parser');
 const session=require('express-session');
 const flash=require('connect-flash');
+const fileupload=require('express-fileupload');
 const app=express();
 require('dotenv').config();
 const {PORT,SECRET}=require("./config");
-const router=require("./routes/index")
+const router=require("./routes/index");
+const {checkUser}=require('./controller/utilityFunctions');
 
 
 app.set('view engine', 'ejs');
@@ -21,6 +23,9 @@ app.use(session({
   cookie: { maxAge: 30 * 60 }
 }));
 app.use(flash());
+app.use(fileupload());
+
+app.get('*',checkUser);
 
 app.all('/', (req, res) => {
     res.render('home');

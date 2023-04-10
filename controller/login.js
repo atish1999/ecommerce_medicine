@@ -3,6 +3,7 @@ const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const {JWT_SECRET}=require('../config');
 const {sendMailUtil,schema}=require('./utilityFunctions');
+const maxAge=3*24*60*60;
 
 
 function loginGet(req,res){
@@ -32,10 +33,13 @@ async function loginPost(req,res){
                     res.redirect('/auth/login');
                     return;
                 }
-                let userName=result[0]._name;
                 if (response) {
-                    // res.cookie('isLoggedIn',true);
-                    req.flash('userName',userName);
+                    const payload={
+                        email,
+                        role
+                    };
+                    const token=jwt.sign(payload,JWT_SECRET,{expiresIn:maxAge});
+                    res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge*1000});
                     if(role==="users"){
                         res.redirect('/user');
                     }else if(role==="doctor"){
@@ -53,9 +57,7 @@ async function loginPost(req,res){
               });
         })
     } catch (err) {
-        res.flash('error',err.message);
-        res.redirect('/auth/login');
-        return;
+        res.status(400).send("server error. try after some time");
     }
 }
 
@@ -65,42 +67,47 @@ function forgotPasswordGet(req,res){
 }
 
 function forgotPasswordPost(req,res){
-    let {role,email}=req.body;
-    let sql='select * from '+role+' where _email=?';
-    medilabDatabase.query(sql,[email],(err,result)=>{
-        if(err){
-            throw err;
-        }
-        if(result.length==0){
-            req.flash('error',"No such user exist");
-            res.redirect('/auth/forgotPassword');
-            return;
-        }
-        // user exit and create a one time link valid for a certain period
-        let email=result[0]._email;
-        let id;
-        if(role==="users"){
-            id=result[0]._uid;
-        }else if(role==="doctor"){
-            id=result[0]._did;
-        }else{
-            id=result[0]._oid;
-        }
-        let name=result[0]._name;
-        let dbPassword=result[0]._password;
-        const secret=JWT_SECRET+dbPassword;
+    try {
+        let {role,email}=req.body;
+        let sql='select * from '+role+' where _email=?';
+        medilabDatabase.query(sql,[email],(err,result)=>{
+            if(err){
+                res.status(400).send('Server Error.Try after some time.')
+            }
+            if(result.length==0){
+                req.flash('error',"No such user exist");
+                res.redirect('/auth/forgotPassword');
+                return;
+            }
+            // user exit and create a one time link valid for a certain period
+            let email=result[0]._email;
+            let id;
+            if(role==="users"){
+                id=result[0]._uid;
+            }else if(role==="doctor"){
+                id=result[0]._did;
+            }else{
+                id=result[0]._oid;
+            }
+            let name=result[0]._name;
+            let dbPassword=result[0]._password;
+            const secret=JWT_SECRET+dbPassword;
 
-        const payload={
-            email,
-            id
-        };
+            const payload={
+                email,
+                id
+            };
 
-        const token=jwt.sign(payload,secret,{expiresIn:'15m'});
+            const token=jwt.sign(payload,secret,{expiresIn:'15m'});
 
-        const link=`http://localhost:3000/auth/resetPassword/${id}/${role}/${token}`;
-        sendMailUtil(email,"Reset Password for medilab",`Hello ${name},\nThis is your One Time link to reset password for your account at medilab.\n\n${link}\n\nIgnore this message if you have not generated this link.\n\nThis Link Expires in 15 min.`)
-        res.send('password link has been sent to your email....');
-    })
+            const link=`http://localhost:3000/auth/resetPassword/${id}/${role}/${token}`;
+            sendMailUtil(email,"Reset Password for medilab",`Hello ${name},\nThis is your One Time link to reset password for your account at medilab.\n\n${link}\n\nIgnore this message if you have not generated this link.\n\nThis Link Expires in 15 min.`)
+            res.send('password link has been sent to your email....');
+        })
+    } catch (error) {
+        res.status(400).send("Server Error. Try After some time.")
+    }
+    
 }
 
 function resetPasswordGet(req,res){
@@ -133,7 +140,7 @@ function resetPasswordGet(req,res){
         });
     } catch (error) {
         console.log(error.message);
-        res.send(error.message);
+        res.status(400).send("Server Error. Try After some time.")
     }
 }
 
@@ -191,11 +198,9 @@ async function resetPasswordPost(req,res){
         });
     } catch (error) {
         console.log(error.message);
-        res.send(error.message);
+        res.status(400).send("Server Error. Try After some time.")
     }
 }
-
-
 
 module.exports={
     loginGet,

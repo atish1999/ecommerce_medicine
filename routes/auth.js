@@ -3,7 +3,9 @@ const {optionsGet,optionsPost}=require("../controller/options");
 const {shopOwnerGet,shopOwnerPost}=require("../controller/shopOwner");
 const {doctorGet,doctorPost}=require("../controller/doctor");
 const {userGet,userPost}=require("../controller/user")
-const {loginGet,loginPost,forgotPasswordGet,forgotPasswordPost,resetPasswordGet,resetPasswordPost}=require("../controller/login")
+const {loginGet,loginPost,forgotPasswordGet,forgotPasswordPost,resetPasswordGet,resetPasswordPost}=require("../controller/login");
+const logoutGet=require('../controller/logout');
+const {requireAuth}=require("../controller/utilityFunctions");
 
 const authRouter=express.Router();
 
@@ -34,5 +36,8 @@ authRouter.route('/forgotPassword')
 authRouter.route('/resetPassword/:id/:role/:token')
     .get(resetPasswordGet)
     .post(resetPasswordPost)
+
+authRouter.route('/logout')
+    .get(logoutGet)
 
 module.exports=authRouter;
