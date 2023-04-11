@@ -1,6 +1,6 @@
 const express=require("express");
 const {doctorHome,composeGet,composePost,doctorArticleGet}=require("../controller/doctor");
-const {articleRead}=require('../controller/articleRead');
+const {articleRead,deleteArticle}=require('../controller/article');
 
 const doctorRouter=express.Router();
 
@@ -13,6 +13,9 @@ doctorRouter.route('/compose')
 
 doctorRouter.route('/articles')
     .get(doctorArticleGet)
+
+doctorRouter.route('/articles/delete')
+    .post(deleteArticle)
 
 doctorRouter.route('/articles/:blogId')
     .get(articleRead)

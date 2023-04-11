@@ -8,6 +8,12 @@
                 <h5><%= articles[index]._date.toDateString() %></h5>
                 <h1><%= articles[index]._title %></h1>
                 <h3><%= articles[index]._content.substring(0,15)+"..." %><a href="/doctor/articles/<%= articles[index]._bid %>">Read more ...</a></h3>
+                <button>Edit</button>
+                <div class="delete">
+                    <form action="/doctor/articles/delete" method="post">
+                            <button name="button" value="<%= articles[index]._bid+"^"+articles[index]._image %>" onchange="this.form.submit()">Delete</button>
+                    </form>
+                </div>
             </div>
         <% } %>
     </div>
