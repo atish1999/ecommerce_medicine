@@ -6,7 +6,9 @@
             <h1><a class="navLogo" href="/">Medilab</a></h1>
         </div>
         <div class="options">
-            <h3><%= user[0]._name %></h3>
+            <% if (user) { %>
+                <h3 class="navElem"><%= user[0]._name %></h3>
+            <% } %>
             <h3><a class="navElem" href="/auth/login">Add To Cart</a></h3>
             <h3><a class="navElem" href="/auth/logout">Logout</a></h3>
 

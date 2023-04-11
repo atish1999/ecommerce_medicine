@@ -65,7 +65,7 @@ function passwordCheck(password){
     return password.match(ps);
 }
 
-function requireAuth(req,res,next){
+function requireAuthDoctor(req,res,next){
     const token=req.cookies.jwt;
     // check if jwt exit & is verified
     if(token){
@@ -73,9 +73,55 @@ function requireAuth(req,res,next){
             if(err){
                 console.log(err.message);
                 res.redirect('/auth/login');
-            }else{
-                console.log(decodedToken);
+            }else if(decodedToken.role==='doctor'){
                 next();
+            }
+            else{
+                res.status(404).render('404');
+            }
+
+        });
+    }
+    else{
+        res.redirect('/auth/login');
+    }
+}
+
+function requireAuthUsers(req,res,next){
+    const token=req.cookies.jwt;
+    // check if jwt exit & is verified
+    if(token){
+        jwt.verify(token,JWT_SECRET,(err,decodedToken)=>{
+            if(err){
+                console.log(err.message);
+                res.redirect('/auth/login');
+            }else if(decodedToken.role==='users'){
+                next();
+            }
+            else{
+                res.status(404).render('404');
+            }
+
+        });
+    }
+    else{
+        res.redirect('/auth/login');
+    }
+}
+
+function requireAuthShopOwner(req,res,next){
+    const token=req.cookies.jwt;
+    // check if jwt exit & is verified
+    if(token){
+        jwt.verify(token,JWT_SECRET,(err,decodedToken)=>{
+            if(err){
+                console.log(err.message);
+                res.redirect('/auth/login');
+            }else if(decodedToken.role==='shopowner'){
+                next();
+            }
+            else{
+                res.status(404).render('404');
             }
 
         });
@@ -95,7 +141,6 @@ function checkUser(req,res,next){
                 next();
             }
             else{
-                console.log(decodedToken);
                 let role=decodedToken.role;
                 let email=decodedToken.email;
                 let sql='select * from '+role+' where _email=?';
@@ -105,7 +150,6 @@ function checkUser(req,res,next){
                         res.locals.user=null;
                         next();
                     }
-                    console.log(result);
                     res.locals.user=result;
                     next();
                 })
@@ -118,11 +162,50 @@ function checkUser(req,res,next){
     }
 }
 
+function getTodayDate(){
+    const date = new Date();
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    // This arrangement can be altered based on how we want the date's format to appear.
+    let currentDate = `${year}-${month}-${day}`;
+    return currentDate;
+}
+
+function uploadFile(blogtitle,blogcontent,blogimage,doctorId){
+    try {
+        blogimage.name=Date.now()+blogimage.name;
+        let uploadPath=path.join(__dirname,'..','/uploads',blogimage.name);
+        let currentDate=getTodayDate();
+
+        blogimage.mv(uploadPath,(err)=>{
+            if(err){
+                return err;
+            }
+            let sql='insert into blog(_title,_content,_image,_date,_did) values(?,?,?,?,?)';
+            medilabDatabse.query(sql,[blogtitle,blogcontent,blogimage.name,currentDate,doctorId],(err,result)=>{
+                if(err){
+                    console.log(err);
+                    return err;
+                }
+            })
+        });
+    } catch (error) {
+        return error;
+    }
+    
+}
+
 module.exports={
     sendMailUtil,
     passwordCheck,
     passwordErrorsMessages,
     schema,
-    requireAuth,
-    checkUser
+    requireAuthUsers,
+    requireAuthDoctor,
+    requireAuthShopOwner,
+    checkUser,
+    uploadFile
 }

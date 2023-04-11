@@ -43,9 +43,11 @@ CREATE TABLE IF NOT EXISTS doctor (
 
 CREATE TABLE IF NOT EXISTS blog (
     _bid int PRIMARY KEY AUTO_INCREMENT,
-    _did int,
+    _title varchar(100),
     _content LONGTEXT,
+    _image varchar(200),
     _date DATE,
+    _did int,
     FOREIGN KEY (_did) REFERENCES doctor(_did) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

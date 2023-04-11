@@ -1,7 +1,7 @@
 <%- include('partials/header'); %>
     <title>Compose Article</title>
 <%- include('partials/doctorNavBar')%>
-    <form action="/doctor/compose/:<%= role %>/:<%= userId %>" method="post" enctype="multipart/form-data">
+    <form action="/doctor/compose" method="post" enctype="multipart/form-data">
         <input type="text" name="blogtitle" placeholder="Enter Blog Title">
         <input type="file" name="blogimage" accept="image/*" placeholder="Enter Blog Image">
         <textarea name="blogcontent" cols="50" rows="10"></textarea>

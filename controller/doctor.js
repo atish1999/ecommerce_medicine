@@ -1,7 +1,10 @@
 const medilabDatabse=require('../models/db');
 const bcrypt=require("bcrypt");
-const {sendMailUtil,passwordCheck,schema,passwordErrorsMessages}=require('./utilityFunctions');
+const {sendMailUtil,passwordCheck,schema,passwordErrorsMessages,uploadFile}=require('./utilityFunctions');
+const jwt=require('jsonwebtoken');
+const {JWT_SECRET}=require('../config');
 
+// doctor register
 
 function doctorGet(req,res){
     let message=req.flash('error');
@@ -36,13 +39,55 @@ async function doctorPost(req,res){
             res.redirect('/auth/login');
         });
     } catch (error) {
-        res.status(400).send("Server Error. Try again.")
+        res.status(500).send('Server Error. Try after some time.')
+
     }
     
 }
 
+
+// doctor home page
+
+
 function doctorHome(req,res){
     res.render('doctor');
+}
+
+// article composing section
+
+function composeGet(req,res){
+    res.render('compose');
+}
+
+function composePost(req,res){
+    try {
+        let {blogtitle,blogcontent}=req.body;
+        let blogimage=req.files.blogimage;
+        let token=req.cookies.jwt;
+        jwt.verify(token,JWT_SECRET,(err,decodedToken)=>{
+            if(err){
+                console.log(err.message);
+                res.redirect('/auth/login');
+            }
+            let email=decodedToken.email;
+            let sql='select * from doctor where _email=?';
+            medilabDatabse.query(sql,[email],(err,result)=>{
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Server Error. Try after some time.')
+                }
+                let doctorId=result[0]._did;
+                // console.log(blogtitle,blogimage,blogcontent,email,doctorId);
+                uploadFile(blogtitle,blogcontent,blogimage,doctorId);
+                res.redirect('/doctor');
+            })
+        })
+    } catch (error) {
+        console.log(err);
+        res.status(500).send('Server Error. Try after some time.');
+    }
+    
+
 }
 
 
@@ -50,5 +95,7 @@ function doctorHome(req,res){
 module.exports={
     doctorGet,
     doctorPost,
-    doctorHome
+    doctorHome,
+    composeGet,
+    composePost
 }

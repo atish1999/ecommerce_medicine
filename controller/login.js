@@ -6,6 +6,8 @@ const {sendMailUtil,schema}=require('./utilityFunctions');
 const maxAge=3*24*60*60;
 
 
+// login 
+
 function loginGet(req,res){
     let message=req.flash('error');
     res.render('login',{message});
@@ -57,9 +59,11 @@ async function loginPost(req,res){
               });
         })
     } catch (err) {
-        res.status(400).send("server error. try after some time");
+        res.status(500).send('Server Error. Try after some time.')
     }
 }
+
+// forgot password
 
 function forgotPasswordGet(req,res){
     let message=req.flash('error');
@@ -72,7 +76,7 @@ function forgotPasswordPost(req,res){
         let sql='select * from '+role+' where _email=?';
         medilabDatabase.query(sql,[email],(err,result)=>{
             if(err){
-                res.status(400).send('Server Error.Try after some time.')
+                res.status(500).send('Server Error. Try after some time.')
             }
             if(result.length==0){
                 req.flash('error',"No such user exist");
@@ -105,7 +109,7 @@ function forgotPasswordPost(req,res){
             res.send('password link has been sent to your email....');
         })
     } catch (error) {
-        res.status(400).send("Server Error. Try After some time.")
+        res.status(500).send('Server Error. Try after some time.')
     }
     
 }
@@ -140,7 +144,7 @@ function resetPasswordGet(req,res){
         });
     } catch (error) {
         console.log(error.message);
-        res.status(400).send("Server Error. Try After some time.")
+        res.status(500).send('Server Error. Try after some time.')
     }
 }
 
@@ -198,7 +202,7 @@ async function resetPasswordPost(req,res){
         });
     } catch (error) {
         console.log(error.message);
-        res.status(400).send("Server Error. Try After some time.")
+        res.status(500).send('Server Error. Try after some time.')
     }
 }
 

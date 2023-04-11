@@ -2,6 +2,8 @@ const medilabDatabase=require('../models/db');
 const bcrypt=require('bcrypt');
 const {sendMailUtil,passwordCheck,schema,passwordErrorsMessages}=require('./utilityFunctions');
 
+// shop owner register
+
 function shopOwnerGet(req,res){
     let message=req.flash('error');
     res.render('shopOwnerRegister',{message});
@@ -35,10 +37,12 @@ async function shopOwnerPost(req,res){
             res.redirect('/auth/login');
         })
     } catch (error) {
-        res.status(400).send("server error");
+        res.status(500).send('Server Error. Try after some time.')
     }
     
 }
+
+// shop owner home page
 
 function shopOwnerHome(req,res){
     let userName=req.flash('userName');

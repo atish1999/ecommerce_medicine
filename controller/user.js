@@ -3,6 +3,8 @@ const bcrypt=require("bcrypt");
 const {sendMailUtil,passwordCheck,schema,passwordErrorsMessages}=require('./utilityFunctions');
 
 
+// user register
+
 function userGet(req,res){
     let message=req.flash('error');
     res.render('userRegister',{message});
@@ -36,10 +38,12 @@ async function userPost(req,res){
             res.redirect('/auth/login');
         })
     } catch (error) {
-        res.status(400).send("Server Error");
+        res.status(500).send('Server Error. Try after some time.')
     }
     
 }
+
+// user home page
 
 function userHome(req,res){
     let userName=req.flash('userName');
