@@ -177,7 +177,7 @@ function getTodayDate(){
 function uploadFile(blogtitle,blogcontent,blogimage,doctorId){
     try {
         blogimage.name=Date.now()+blogimage.name;
-        let uploadPath=path.join(__dirname,'..','/uploads',blogimage.name);
+        let uploadPath=path.join(__dirname,'..','/public/uploads',blogimage.name);
         let currentDate=getTodayDate();
 
         blogimage.mv(uploadPath,(err)=>{

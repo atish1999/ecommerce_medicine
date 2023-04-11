@@ -1,0 +1,14 @@
+<%- include('partials/header'); %>
+    <title>My Articles</title>
+<%- include('partials/doctorNavBar')%>
+    <div class="articles">
+        <% for( let index = 0; index < articles.length; index++ ) { %>
+            <div class="article">
+                <img src="/uploads/<%=articles[index]._image%>" class="blogImg" alt="">
+                <h5><%= articles[index]._date.toDateString() %></h5>
+                <h1><%= articles[index]._title %></h1>
+                <h3><%= articles[index]._content.substring(0,15)+"..." %><a href="/doctor/articles/<%= articles[index]._bid %>">Read more ...</a></h3>
+            </div>
+        <% } %>
+    </div>
+<%- include('partials/footer'); %>

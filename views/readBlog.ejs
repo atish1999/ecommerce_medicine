@@ -1,0 +1,17 @@
+<%- include('partials/header'); %>
+    <title><%= article[0]._title %></title>
+</head>
+<body>
+    <div class="navBar">
+        <div class="company">
+            <img class="navLogo" src="/favicon.png" alt="">
+            <h1><a class="navLogo" href="/">Medilab</a></h1>
+        </div>
+    </div>
+
+    <img src="/uploads/<%=article[0]._image %>" alt="">
+    <h5><%= article[0]._date %></h5>
+    <h1><%= article[0]._title %></h1>
+    <p><%= article[0]._content %></p>
+
+<%- include('partials/footer'); %>

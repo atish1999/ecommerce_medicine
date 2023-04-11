@@ -2,13 +2,14 @@
 <body>
     <div class="navBar">
         <div class="company">
-            <img class="navLogo" src="favicon.png" alt="">
+            <img class="navLogo" src="/favicon.png" alt="">
             <h1><a class="navLogo" href="/">Medilab</a></h1>
         </div>
         <div class="options">
                 <% if (user) { %>
                     <h3 class="navElem"><%= user[0]._name %></h3>
-                <% } %>
+                <% } %> 
+                <h3><a class="navElem" href="/doctor/articles">My Articles</a></h3>
                 <h3><a class="navElem" href="/doctor/compose">Compose</a></h3>
                 <h3><a class="navElem" href="/auth/logout">Logout</a></h3>
         </div>

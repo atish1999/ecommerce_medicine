@@ -3,6 +3,7 @@ const bcrypt=require("bcrypt");
 const {sendMailUtil,passwordCheck,schema,passwordErrorsMessages,uploadFile}=require('./utilityFunctions');
 const jwt=require('jsonwebtoken');
 const {JWT_SECRET}=require('../config');
+const path=require('path');
 
 // doctor register
 
@@ -90,6 +91,31 @@ function composePost(req,res){
 
 }
 
+function doctorArticleGet(req,res){
+    let token=req.cookies.jwt;
+    jwt.verify(token,JWT_SECRET,(err,decodedToken)=>{
+        if(err){
+            console.log(err);
+            res.send(500).send("server error. try after some time.")
+        }
+        let email=decodedToken.email;
+        let sql='select * from doctor where _email=?';
+        medilabDatabse.query(sql,[email],(err,result)=>{
+            if(err){
+                res.send(500).send("server error. try after some time.");
+            }
+            let doctorId=result[0]._did;
+            let sql='select * from blog where _did=?';
+            medilabDatabse.query(sql,[doctorId],(err,articles)=>{
+                if(err){
+                    res.send(500).send("server error. try after some time.");
+                }
+                res.render('doctorArticle',{articles});
+            })
+        })
+    })
+}
+
 
 
 module.exports={
@@ -97,5 +123,6 @@ module.exports={
     doctorPost,
     doctorHome,
     composeGet,
-    composePost
+    composePost,
+    doctorArticleGet
 }

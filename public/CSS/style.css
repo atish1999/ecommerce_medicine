@@ -2,3 +2,24 @@
     margin: 0px;
     box-sizing: border-box;
 }
+
+button{
+    cursor: pointer;
+}
+
+.articles{
+    margin: 3rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
+
+.article{
+    height: 20rem;
+    width: 20rem;
+    color: green;
+}
+
+.blogImg{
+    height: 50%;
+    width: 100%;
+}
