@@ -207,5 +207,6 @@ module.exports={
     requireAuthDoctor,
     requireAuthShopOwner,
     checkUser,
-    uploadFile
+    uploadFile,
+    getTodayDate
 }

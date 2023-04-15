@@ -1,0 +1,19 @@
+<%- include('partials/header'); %>
+    <title><%= article[0]._title %></title>
+</head>
+<body>
+    <div class="navBar">
+        <div class="company">
+            <img class="navLogo" src="/favicon.png" alt="">
+            <h1><a class="navLogo" href="/">Medilab</a></h1>
+        </div>
+    </div>
+
+    <form action="/doctor/articles/edit/<%= article[0]._bid %>" method="post" enctype="multipart/form-data">
+        <input type="text" name="blogtitle" value="<%= article[0]._title %>">
+        <input type="file" name="blogimage" accept="image/*" placeholder="Enter Blog Image">
+        <textarea name="blogcontent" cols="50" rows="10"><%= article[0]._content %></textarea>
+        <button name="button" value="<%= article[0]._image %>" onchange="this.form.submit()">Update</button>
+    </form>
+    
+<%- include('partials/footer'); %>

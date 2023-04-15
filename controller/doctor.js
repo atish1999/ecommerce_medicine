@@ -110,7 +110,7 @@ function doctorArticleGet(req,res){
                 if(err){
                     res.send(500).send("server error. try after some time.");
                 }
-                res.render('doctorArticle',{articles});
+                res.render('doctorBlog',{articles});
             })
         })
     })

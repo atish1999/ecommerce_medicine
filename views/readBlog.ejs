@@ -10,7 +10,7 @@
     </div>
 
     <img src="/uploads/<%=article[0]._image %>" alt="">
-    <h5><%= article[0]._date %></h5>
+    <h5><%= article[0]._date.toDateString() %></h5>
     <h1><%= article[0]._title %></h1>
     <p><%= article[0]._content %></p>
 
