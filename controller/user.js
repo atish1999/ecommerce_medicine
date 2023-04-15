@@ -46,12 +46,29 @@ async function userPost(req,res){
 // user home page
 
 function userHome(req,res){
-    let userName=req.flash('userName');
-    res.render('user',{userName});
+    res.render('user');
 }
+
+function userArticlesGet(req,res){
+    try {
+        let sql='select * from blog;'
+        medilabDatabase.query(sql,(err,articles)=>{
+            if(err){
+                res.status(500).send("Server Error. Try after some time.")
+            }
+            res.render('userBlog',{articles});
+        })
+    } catch (error) {
+        
+    }
+    
+    
+}
+
 
 module.exports={
     userGet,
     userPost,
-    userHome
+    userHome,
+    userArticlesGet
 }

@@ -14,6 +14,24 @@ function articleRead(req,res){
     })
 }
 
+function articleReadUser(req,res){
+    let blogId=req.params.blogId;
+    let sql='select * from blog where _bid=?';
+    medilabDatabse.query(sql,[blogId],(err,article)=>{
+        if(err){
+            res.status(500).send("server error. try after some time");
+        }
+        let doctorId=article[0]._did;
+        let sql='select * from doctor where _did=?';
+        medilabDatabse.query(sql,[doctorId],(err,doctor)=>{
+            if(err){
+                res.status(500).send("server error. try after some time");
+            }
+            res.render('readBlogUser',{article,doctor});
+        })
+    })
+}
+
 function deleteArticle(req,res){
     let inputArr=req.body.button.split("^");
     let blogId=inputArr[0];
@@ -68,6 +86,7 @@ function editArticlePost(req,res){
 
 module.exports={
     articleRead,
+    articleReadUser,
     deleteArticle,
     editArticleGet,
     editArticlePost
