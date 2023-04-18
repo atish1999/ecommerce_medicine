@@ -1,0 +1,25 @@
+<%- include('partials/header'); %>
+    <title>Medilab</title>
+<%- include('partials/shopOwnerNavBar')%>
+    <div class="articles">
+        <% for( let index = 0; index < medicines.length; index++ ) { %>
+            <div class="article">
+                <img src="/uploads/<%=medicines[index]._image%>" class="blogImg" alt="">
+                <h5><%= medicines[index]._expiry.toDateString() %></h5>
+                <h1><%= medicines[index]._name %></h1>
+                <h3>MRP: <%= medicines[index]._mrp%>
+                <h3>Qty: <%= medicines[index]._quantity %></h3>
+                <div class="edit">
+                    <form action="/shopOwner/stocks/edit/<%= medicines[index]._prid %>">
+                            <button>Edit</button>
+                    </form>
+                </div>
+                <div class="delete">
+                    <form action="/shopOwner/stocks/delete" method="post">
+                            <button name="button" value="<%= medicines[index]._prid+"^"+medicines[index]._image %>" onchange="this.form.submit()">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+    </div>
+<%- include('partials/footer'); %>

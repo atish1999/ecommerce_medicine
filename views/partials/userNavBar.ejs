@@ -7,7 +7,7 @@
         </div>
         <div class="options">
             <% if (user) { %>
-                <h3 class="navElem"><%= user[0]._name %></h3>
+                <h3 class="navElem"><a class="navElem" href="/user"><%= user[0]._name %></a></h3>
             <% } %>
             <h3><a class="navElem" href="/user/articles">Articles</a></h3>
             <h3><a class="navElem" href="/auth/logout">Logout</a></h3>
