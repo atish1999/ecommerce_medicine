@@ -55,9 +55,15 @@ CREATE TABLE IF NOT EXISTS blog (
 
 CREATE TABLE IF NOT EXISTS product (
 	_prid int PRIMARY KEY AUTO_INCREMENT,
-	_name varchar(50),
+	_name varchar(100),
     _quantity int,
     _mrp int,
+    _image varchar(200),
+    _manufacturer varchar(100) DEFAULT '',
+    _composition JSON DEFAULT ('{}'),
+    _expiry DATE,
+    _use varchar(100) DEFAULT '',
+    _benefits varchar(300) DEFAULT '',
     _oid int,
     FOREIGN KEY (_oid) REFERENCES shopowner(_oid) ON DELETE CASCADE ON UPDATE CASCADE
 );

@@ -180,21 +180,48 @@ function uploadFile(blogtitle,blogcontent,blogimage,doctorId){
         let uploadPath=path.join(__dirname,'..','/public/uploads',blogimage.name);
         let currentDate=getTodayDate();
 
-        blogimage.mv(uploadPath,(err)=>{
+        let sql='insert into blog(_title,_content,_image,_date,_did) values(?,?,?,?,?)';
+        medilabDatabse.query(sql,[blogtitle,blogcontent,blogimage.name,currentDate,doctorId],(err,result)=>{
             if(err){
+                console.log(err);
                 return err;
             }
-            let sql='insert into blog(_title,_content,_image,_date,_did) values(?,?,?,?,?)';
-            medilabDatabse.query(sql,[blogtitle,blogcontent,blogimage.name,currentDate,doctorId],(err,result)=>{
+            blogimage.mv(uploadPath,(err)=>{
                 if(err){
-                    console.log(err);
                     return err;
                 }
-            })
-        });
+            });
+        })
+        
     } catch (error) {
         return error;
     }
+    
+}
+
+function uploadMedicine(name,quantity,mrp,medicineimage,manufacturer,composition,expdate,use,benefits,ownerId){
+   try {
+        medicineimage.name=Date.now()+medicineimage.name;
+        let uploadPath=path.join(__dirname,'..','/public/uploads',medicineimage.name);
+        let currentDate=getTodayDate();
+        composition=JSON.stringify(composition);
+
+        let sql='insert into product(_name,_quantity,_mrp,_image,_manufacturer,_composition,_expiry,_use,_benefits,_oid) values(?,?,?,?,?,?,?,?,?,?);';
+        medilabDatabse.query(sql,[name,quantity,mrp,medicineimage.name,manufacturer,composition,expdate,use,benefits,ownerId],(err,result)=>{
+            if(err){
+                throw err;
+            }
+            medicineimage.mv(uploadPath,(err)=>{
+                if(err)
+                    throw err;
+                return;
+            })
+            
+        })
+   } catch (error) {
+        return error;
+   }
+    
     
 }
 
@@ -208,5 +235,6 @@ module.exports={
     requireAuthShopOwner,
     checkUser,
     uploadFile,
-    getTodayDate
+    getTodayDate,
+    uploadMedicine
 }

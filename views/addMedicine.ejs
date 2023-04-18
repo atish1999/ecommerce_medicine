@@ -1,0 +1,19 @@
+<%- include('partials/header'); %>
+    <title>Add Medicine</title>
+<%- include('partials/shopOwnerNavBar')%>
+    <form action="/shopOwner/add" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Enter Medicine Name" required>
+        <input type="number" min="5" name="quantity" placeholder="Enter Quantity" required>
+        <input type="text" name="mrp" placeholder="Enter Price for each pack" required>
+        <input type="file" name="medicineimage" accept="image/*">
+        <input type="text" name="manufacturer" placeholder="Enter manufacturer Name">
+        <ul class="comp">
+            <input type="text" id="compsition" name="composition" placeholder="Enter Medicine Compostion">
+        </ul>
+        <button class="addcomp">Add More Composition</button>
+        <input type="date" name="expdate" placeholder="Enter Expiry Date" pattern="\d{2}-\d{2}-\d{4}">
+        <textarea name="use" cols="30" rows="10"></textarea>
+        <textarea name="benefits" cols="30" rows="10"></textarea>
+        <button>Add</button>
+    </form>
+<%- include('partials/footer'); %>
