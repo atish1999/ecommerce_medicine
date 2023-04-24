@@ -1,6 +1,6 @@
 const express=require("express");
 const {shopOwnerHome}=require("../controller/shopOwner");
-const {addMedicineGet,addMedicinePost,ownerMedicineStocks,deleteMedicine}=require("../controller/medicine");
+const {addMedicineGet,addMedicinePost,ownerMedicineStocks,deleteMedicine,updateMedicineGet,updateMedicinePost}=require("../controller/medicine");
 
 const shopOwnerRouter=express.Router();
 
@@ -16,5 +16,9 @@ shopOwnerRouter.route('/stocks')
 
 shopOwnerRouter.route('/stocks/delete')
     .post(deleteMedicine)
+
+shopOwnerRouter.route('/stocks/edit/:productId')
+    .get(updateMedicineGet)
+    .post(updateMedicinePost)
 
 module.exports=shopOwnerRouter;

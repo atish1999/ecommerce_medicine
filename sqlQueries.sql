@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS shopowner (
 	_address varchar(250),
 	_email varchar(50) UNIQUE,
 	_name varchar(50),
-    _phno varchar(15)
+    _phno varchar(15),
+    _shopname varchar(200) DEFAULT ''
 );
 
 -- 3. Doctor
@@ -64,6 +65,7 @@ CREATE TABLE IF NOT EXISTS product (
     _expiry DATE,
     _use varchar(100) DEFAULT '',
     _benefits varchar(300) DEFAULT '',
+    _tabletsperpiece int,
     _oid int,
     FOREIGN KEY (_oid) REFERENCES shopowner(_oid) ON DELETE CASCADE ON UPDATE CASCADE
 );

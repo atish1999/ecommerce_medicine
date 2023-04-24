@@ -1,5 +1,5 @@
 <%- include('partials/header'); %>
-    <title>Medilab</title>
+    <title>Stocks</title>
 <%- include('partials/shopOwnerNavBar')%>
     <div class="articles">
         <% for( let index = 0; index < medicines.length; index++ ) { %>
@@ -7,11 +7,11 @@
                 <img src="/uploads/<%=medicines[index]._image%>" class="blogImg" alt="">
                 <h5><%= medicines[index]._expiry.toDateString() %></h5>
                 <h1><%= medicines[index]._name %></h1>
-                <h3>MRP: <%= medicines[index]._mrp%>
+                <h3>MRP per Strip: <%= medicines[index]._mrp%>
                 <h3>Qty: <%= medicines[index]._quantity %></h3>
                 <div class="edit">
                     <form action="/shopOwner/stocks/edit/<%= medicines[index]._prid %>">
-                            <button>Edit</button>
+                            <button>Update</button>
                     </form>
                 </div>
                 <div class="delete">

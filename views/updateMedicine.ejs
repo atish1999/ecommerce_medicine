@@ -1,0 +1,30 @@
+<%- include('partials/header'); %>
+<title>Update: <%= product[0]._name %></title>
+</head>
+<body>
+    <div class="navBar">
+        <div class="company">
+            <img class="navLogo" src="/favicon.png" alt="">
+            <h1><a class="navLogo" href="/">Medilab</a></h1>
+        </div>
+    </div>
+
+    <form action="/shopOwner/stocks/edit/<%= product[0]._prid %>" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" value="<%= product[0]._name %>">
+        <input type="number" min="5" name="quantity" value="<%= product[0]._quantity %>">
+        <input type="text" name="mrp" value="<%= product[0]._mrp %>">
+        <input type="number" name="tablets" value="<%= product[0]._tabletsperpiece %>">
+        <input type="file" name="medicineimage" accept="image/*">
+        <input type="text" name="manufacturer" value="<%= product[0]._manufacturer %>">
+        <ul class="comp">
+            <% for( let index = 0; index < product[0]._composition.length; index++ ) { %>
+                <input type="text" id="compsition" name="composition" value="<%= product[0]._composition[index] %>">
+            <% } %>
+        </ul>
+        <button class="addcomp">Add More Composition</button>
+        <input type="date" name="expdate" value="<%= product[0]._expiry %>" pattern="\d{2}-\d{2}-\d{4}">
+        <textarea name="use" cols="30" rows="10"><%= product[0]._use %></textarea>
+        <textarea name="benefits" cols="30" rows="10"><%= product[0]._benefits %></textarea>
+        <button name="button" value="<%= product[0]._image %>" onchange="this.form.submit()">Update</button>
+    </form>
+<%- include('partials/footer'); %>

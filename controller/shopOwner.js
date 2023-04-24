@@ -11,7 +11,7 @@ function shopOwnerGet(req,res){
 
 async function shopOwnerPost(req,res){
     try {
-        let {name,email,password,pci,mobNumber,sa,city,pa}=req.body;
+        let {name,email,password,shopname,pci,mobNumber,sa,city,pa}=req.body;
         let address=sa+"^"+city+"^"+pa;
         let isValid=schema.validate(password,{list:true});
         if(isValid.length>0){
@@ -26,9 +26,10 @@ async function shopOwnerPost(req,res){
         let salt=await bcrypt.genSalt(10);
         let hash=await bcrypt.hash(password,salt);
         password=hash;
-        let sql='insert into shopowner(_pci,_password,_address,_email,_name,_phno) values(?,?,?,?,?,?);';
-        medilabDatabase.query(sql,[pci,password,address,email,name,mobNumber],(err,result)=>{
+        let sql='insert into shopowner(_shopname,_pci,_password,_address,_email,_name,_phno) values(?,?,?,?,?,?,?);';
+        medilabDatabase.query(sql,[shopname,pci,password,address,email,name,mobNumber],(err,result)=>{
             if(err){
+                console.log(err);
                 req.flash('error','email '+email+' already exist');
                 res.redirect('/auth/shopOwnerRegister');
                 return;

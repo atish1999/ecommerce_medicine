@@ -199,15 +199,14 @@ function uploadFile(blogtitle,blogcontent,blogimage,doctorId){
     
 }
 
-function uploadMedicine(name,quantity,mrp,medicineimage,manufacturer,composition,expdate,use,benefits,ownerId){
+function uploadMedicine(name,quantity,mrp,tablets,medicineimage,manufacturer,composition,expdate,use,benefits,ownerId){
    try {
         medicineimage.name=Date.now()+medicineimage.name;
         let uploadPath=path.join(__dirname,'..','/public/uploads',medicineimage.name);
-        let currentDate=getTodayDate();
         composition=JSON.stringify(composition);
 
-        let sql='insert into product(_name,_quantity,_mrp,_image,_manufacturer,_composition,_expiry,_use,_benefits,_oid) values(?,?,?,?,?,?,?,?,?,?);';
-        medilabDatabse.query(sql,[name,quantity,mrp,medicineimage.name,manufacturer,composition,expdate,use,benefits,ownerId],(err,result)=>{
+        let sql='insert into product(_name,_quantity,_mrp,_tabletsperpiece,_image,_manufacturer,_composition,_expiry,_use,_benefits,_oid) values(?,?,?,?,?,?,?,?,?,?,?);';
+        medilabDatabse.query(sql,[name,quantity,mrp,tablets,medicineimage.name,manufacturer,composition,expdate,use,benefits,ownerId],(err,result)=>{
             if(err){
                 throw err;
             }
@@ -221,8 +220,20 @@ function uploadMedicine(name,quantity,mrp,medicineimage,manufacturer,composition
    } catch (error) {
         return error;
    }
-    
-    
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }
 
 module.exports={
@@ -236,5 +247,6 @@ module.exports={
     checkUser,
     uploadFile,
     getTodayDate,
-    uploadMedicine
+    uploadMedicine,
+    formatDate
 }
