@@ -108,6 +108,7 @@ function updateMedicinePost(req,res){
         if(err)
         {
             console.log(err);
+            res.status(400).send("Please enter a valid image");
         }
         fs.unlinkSync(path.join(__dirname,'..','/public/uploads',button));
         let sql='update product set _name=?, _quantity=?, _mrp=?, _tabletsperPiece=?, _image=?, _manufacturer=?, _composition=?, _expiry=?, _use=?, _benefits=? where _prid=?';
