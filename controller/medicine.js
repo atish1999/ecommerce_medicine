@@ -122,11 +122,30 @@ function updateMedicinePost(req,res){
     })
 }
 
+function searchMedicineGet(req,res){
+    // console.log(req.url);
+    let searchQuery=req.url.split('?')[1];
+    let medicinename=searchQuery.split('=')[1];
+    let sql="select * from product where _name like '%"+medicinename+"%';";
+    medilabDatabse.query(sql,(err,medicines)=>{
+        if(err){
+            res.status(500).send("Server Error. Try After some time.");
+            return;
+        }
+        let medicinesError="";
+        if(medicines.length==0)
+            medicinesError="No Such Medicine Exit";
+        res.render('userMedicine',{medicines,medicinesError});
+    })
+}
+
+
 module.exports={
     addMedicineGet,
     addMedicinePost,
     ownerMedicineStocks,
     deleteMedicine,
     updateMedicineGet,
-    updateMedicinePost
+    updateMedicinePost,
+    searchMedicineGet
 }

@@ -199,6 +199,7 @@ function uploadFile(blogtitle,blogcontent,blogimage,doctorId){
     
 }
 
+
 function uploadMedicine(name,quantity,mrp,tablets,medicineimage,manufacturer,composition,expdate,use,benefits,ownerId){
    try {
         medicineimage.name=Date.now()+medicineimage.name;

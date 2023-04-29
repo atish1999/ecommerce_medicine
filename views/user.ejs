@@ -1,5 +1,15 @@
 <%- include('partials/header'); %>
     <title>Medilab</title>
 <%- include('partials/userNavBar')%>
-    <input type="text" name="medicineName" placeholder="Search Medicine">
+    <form action="/user/searchMedicine" method="get">
+        <input type="text" name="medicinename" class="searchMedicine" placeholder="Search Medicine">
+        <button class="submitMedicine">Search</button>
+    </form>
+    
+    <!-- <div class="errorSection">
+        <h2 class="msg"></h2>
+    </div>
+    
+    <div class="spinner"></div> -->
+    <!-- <script src="/js/searchMedicine.js"></script> -->
 <%- include('partials/footer'); %>

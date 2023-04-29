@@ -1,0 +1,24 @@
+<%- include('partials/header'); %>
+    <title>Medilab</title>
+<%- include('partials/userNavBar')%>
+    <form action="/user/searchMedicine" method="get">
+        <input type="text" name="medicinename" class="searchMedicine" placeholder="Search Medicine">
+        <button class="submitMedicine">Search</button>
+    </form>
+    <% if (medicinesError!=="") { %>
+        <h1>No such medicine exist</h1>
+    <% } else { %>
+        <div class="articles">
+            <% for( let index = 0; index < medicines.length; index++ ) { %>
+                <div class="article">
+                    <img src="/uploads/<%=medicines[index]._image%>" class="blogImg" alt="">
+                    <h5><%= medicines[index]._expiry.toDateString() %></h5>
+                    <h1><%= medicines[index]._name %></h1>
+                    <h3>MRP: <%= medicines[index]._mrp %></h3>
+                    <h3>Manufactured By: <%= medicines[index]._manufacturer %></h3>
+                </div>
+            <% } %>
+        </div>
+    <% } %>
+    
+<%- include('partials/footer'); %>
