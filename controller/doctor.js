@@ -75,7 +75,8 @@ function composePost(req,res){
             medilabDatabse.query(sql,[email],(err,result)=>{
                 if(err){
                     console.log(err);
-                    res.status(500).send('Server Error. Try after some time.')
+                    res.status(500).send('Server Error. Try after some time.');
+                    return;
                 }
                 let doctorId=result[0]._did;
                 // console.log(blogtitle,blogimage,blogcontent,email,doctorId);
@@ -96,13 +97,15 @@ function doctorArticleGet(req,res){
     jwt.verify(token,JWT_SECRET,(err,decodedToken)=>{
         if(err){
             console.log(err);
-            res.send(500).send("server error. try after some time.")
+            res.send(500).send("server error. try after some time.");
+            return;
         }
         let email=decodedToken.email;
         let sql='select * from doctor where _email=?';
         medilabDatabse.query(sql,[email],(err,result)=>{
             if(err){
                 res.send(500).send("server error. try after some time.");
+                return;
             }
             let doctorId=result[0]._did;
             let sql='select * from blog where _did=?';

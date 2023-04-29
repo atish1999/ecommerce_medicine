@@ -16,6 +16,11 @@
                     <h1><%= medicines[index]._name %></h1>
                     <h3>MRP: <%= medicines[index]._mrp %></h3>
                     <h3>Manufactured By: <%= medicines[index]._manufacturer %></h3>
+                    <div class="addCart">
+                        <form action="/user/addCart" method="post">
+                                <button name="button" value="<%= medicines[index]._prid+"^"+user[0]._uid +"^"+ medicines[index]._image+"^"+medicines[index]._expiry +"^"+medicines[index]._name +"^"+medicines[index]._mrp+"^"+medicines[index]._manufacturer%>" onchange="this.form.submit()">Add To Cart</button>
+                        </form>
+                    </div>
                 </div>
             <% } %>
         </div>

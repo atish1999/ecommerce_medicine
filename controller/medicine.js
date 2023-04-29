@@ -26,7 +26,8 @@ try {
         medilabDatabse.query(sql,[email],(err,result)=>{
             if(err){
                 console.log(err);
-                res.status(500).send('Server Error. Try after some time.')
+                res.status(500).send('Server Error. Try after some time.');
+                return;
             }
             let ownerId=result[0]._oid;
             uploadMedicine(name,quantity,mrp,tablets,medicineimage,manufacturer,composition,expdate,use,benefits,ownerId);
@@ -44,19 +45,22 @@ function ownerMedicineStocks(req,res){
     jwt.verify(token,JWT_SECRET,(err,decodedToken)=>{
         if(err){
             console.log(err);
-            res.send(500).send("server error. try after some time.")
+            res.send(500).send("server error. try after some time.");
+            return;
         }
         let email=decodedToken.email;
         let sql='select * from shopowner where _email=?';
         medilabDatabse.query(sql,[email],(err,result)=>{
             if(err){
                 res.send(500).send("server error. try after some time.");
+                return;
             }
             let ownerId=result[0]._oid;
             let sql='select * from product where _oid=?';
             medilabDatabse.query(sql,[ownerId],(err,medicines)=>{
                 if(err){
                     res.send(500).send("server error. try after some time.");
+                    return;
                 }
                 res.render('ownerMedicineStock',{medicines});
             })
@@ -73,6 +77,7 @@ function deleteMedicine(req,res){
         if(err)
         {
             res.status(500).send("server error. try after some time");
+            return;
         }
         fs.unlinkSync(path.join(__dirname,'..','/public/uploads',imageName));
         res.redirect('/shopOwner/stocks');
@@ -85,6 +90,7 @@ function updateMedicineGet(req,res){
     medilabDatabse.query(sql,[productId],(err,product)=>{
         if(err){
             res.status(500).send("server error. try after some time");
+            return;
         }
         if(!product[0]._composition.includes(" "))
             product[0]._composition=product[0]._composition.split(" ");
@@ -109,12 +115,14 @@ function updateMedicinePost(req,res){
         {
             console.log(err);
             res.status(400).send("Please enter a valid image");
+            return;
         }
         fs.unlinkSync(path.join(__dirname,'..','/public/uploads',button));
         let sql='update product set _name=?, _quantity=?, _mrp=?, _tabletsperPiece=?, _image=?, _manufacturer=?, _composition=?, _expiry=?, _use=?, _benefits=? where _prid=?';
         medilabDatabse.query(sql,[name,quantity,mrp,tablets,medicineimage.name,manufacturer,composition,expdate,use,benefits,productId],(err,result)=>{
             if(err){
                 res.status(500).send("Server Error. Try After some time.")
+                return;
             }
         
         })

@@ -79,7 +79,22 @@ CREATE TABLE IF NOT EXISTS purchase (
     _date DATE,
     _prid int,
     FOREIGN KEY (_prid) REFERENCES product(_prid) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (_uid) REFERENCES user(_uid) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (_uid) REFERENCES users(_uid) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- 7. Cart - for individual users
+
+CREATE TABLE IF NOT EXISTS cart(
+    _cartId int PRIMARY KEY AUTO_INCREMENT,
+    _prid int,
+    _uid int,
+    _image varchar(200),
+    _expiry DATE,
+    _name varchar(100),
+    _mrp int,
+    _manufacturer varchar(100),
+    FOREIGN KEY (_prid) REFERENCES product(_prid) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (_uid) REFERENCES users(_uid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 --Modifying database

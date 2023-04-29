@@ -10,7 +10,7 @@
                 <h3 class="navElem"><a class="navElem" href="/user"><%= user[0]._name %></a></h3>
             <% } %>
             <h3><a class="navElem" href="/user/articles">Articles</a></h3>
-            <h3><a href="/user/articles" class="navElem">My Cart</a></h3>
+            <h3><a href="/user/myCart/<%= user[0]._name %>/<%= user[0]._uid %>" class="navElem">My Cart</a></h3>
             <h3><a href="/user/articles" class="navElem">My Orders</a></h3>
             <h3><a class="navElem" href="/auth/logout">Logout</a></h3>
 

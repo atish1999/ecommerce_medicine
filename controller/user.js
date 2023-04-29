@@ -1,6 +1,6 @@
 const medilabDatabase=require('../models/db');
 const bcrypt=require("bcrypt");
-const {sendMailUtil,passwordCheck,schema,passwordErrorsMessages}=require('./utilityFunctions');
+const {sendMailUtil,passwordCheck,schema,passwordErrorsMessages,formatDate}=require('./utilityFunctions');
 
 
 // user register
@@ -54,7 +54,8 @@ function userArticlesGet(req,res){
         let sql='select * from blog;'
         medilabDatabase.query(sql,(err,articles)=>{
             if(err){
-                res.status(500).send("Server Error. Try after some time.")
+                res.status(500).send("Server Error. Try after some time.");
+                return;
             }
             res.render('userBlog',{articles});
         })
@@ -65,10 +66,50 @@ function userArticlesGet(req,res){
     
 }
 
+function addCartPost(req,res){
+    var fullUrl = req.get('referer');
+    let inputArr=req.body.button.split("^");
+    let productId=inputArr[0];
+    let userId=inputArr[1];
+    let productImage=inputArr[2];
+    let productExpiry=inputArr[3];
+    productExpiry=formatDate(productExpiry);
+    let productName=inputArr[4];
+    let productMrp=inputArr[5];
+    let productManufacturer=inputArr[6];
+    // console.log(productId,productImage,productExpiry,productName,productMrp,productManufacturer,userId);
+    let sql='insert into cart(_prid,_uid,_image,_expiry,_name,_mrp,_manufacturer) values(?,?,?,?,?,?,?);';
+    medilabDatabase.query(sql,[productId,userId,productImage,productExpiry,productName,productMrp,productManufacturer],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Server Error. Try after some time.");
+            return;
+        }
+        res.redirect(fullUrl);
+    })
+}
+
+
+function myCartGet(req,res){
+    let userId=req.params.userId;
+    // console.log(userId);
+    let sql='select * from cart where _uid=?';
+    medilabDatabase.query(sql,[userId],async (err,products)=>{
+        if(err){
+            res.status(500).send("Server Error. Try after some time.");
+            return;
+        }
+        res.render('myCart',{products})
+    })
+    
+}
+
 
 module.exports={
     userGet,
     userPost,
     userHome,
-    userArticlesGet
+    userArticlesGet,
+    addCartPost,
+    myCartGet
 }

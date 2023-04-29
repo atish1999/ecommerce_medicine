@@ -9,6 +9,7 @@ function articleRead(req,res){
     medilabDatabse.query(sql,[blogId],(err,article)=>{
         if(err){
             res.status(500).send("server error. try after some time");
+            return;
         }
         res.render('readBlog',{article});
     })
@@ -26,6 +27,7 @@ function articleReadUser(req,res){
         medilabDatabse.query(sql,[doctorId],(err,doctor)=>{
             if(err){
                 res.status(500).send("server error. try after some time");
+                return;
             }
             res.render('readBlogUser',{article,doctor});
         })
@@ -41,6 +43,7 @@ function deleteArticle(req,res){
         if(err)
         {
             res.status(500).send("server error. try after some time");
+            return;
         }
         fs.unlinkSync(path.join(__dirname,'..','/public/uploads',imageName));
         res.redirect('/doctor/articles');
@@ -53,6 +56,7 @@ function editArticleGet(req,res){
     medilabDatabse.query(sql,[blogId],(err,article)=>{
         if(err){
             res.status(500).send("server error. try after some time");
+            return;
         }
         res.render('editBlog',{article});
     })
@@ -75,7 +79,8 @@ function editArticlePost(req,res){
         let sql='update blog set _title=?, _content=?, _image=?, _date=? where _bid=?';
         medilabDatabse.query(sql,[blogtitle,blogcontent,blogimage.name,currentDate,blogId],(err,result)=>{
             if(err){
-                res.status(500).send("Server Error. Try After some time.")
+                res.status(500).send("Server Error. Try After some time.");
+                return;
             }
         
         })
