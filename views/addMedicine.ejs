@@ -3,7 +3,7 @@
 <%- include('partials/shopOwnerNavBar')%>
     <form action="/shopOwner/add" method="post" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Enter Medicine Name" required>
-        <input type="number" min="5" name="quantity" placeholder="Enter Quantity" required>
+        <input type="number" min="5" step="5" name="quantity" placeholder="Enter Quantity" required>
         <input type="text" name="mrp" placeholder="Enter Price for each pack" required>
         <input type="number" name="tablets" placeholder="Enter No. of Tablets per Strip" required>
         <input type="file" name="medicineimage" accept="image/*">

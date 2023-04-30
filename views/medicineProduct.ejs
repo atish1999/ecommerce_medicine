@@ -1,0 +1,28 @@
+<%- include('partials/header'); %>
+    <title><%= product[0]._name %></title>
+<%- include('partials/userNavBar')%>
+    
+    <img src="/uploads/<%=product[0]._image%>" class="blogImg" alt="">
+    <h1><%= product[0]._name %></h1>
+    <h3>Expires on : <%= product[0]._expiry.toDateString() %></h3>
+    <h2>Available Quantity : <%= product[0]._quantity %></h2>
+    <h2>Price for Each Strip : <%= product[0]._mrp %></h2>
+    <h2>Tablets Per Strip : <%= product[0]._tabletsperpiece %></h2>
+    <h2>Manufactured By : <%= product[0]._manufacturer %></h2>
+    <h2>Composition : </h2>
+    <ul class="comp">
+        <% for( let index = 0; index < product[0]._composition.length; index++ ) { %>
+            <li><%= product[0]._composition[index] %></li>
+        <% } %>
+    </ul>
+    <h2>How To Use : </h2>
+    <p><%= product[0]._use %></p>
+
+    <h2>Benefits : </h2>
+    <p><%= product[0]._benefits %></p>
+    <div class="addCart">
+        <form action="/user/addCart" method="post">
+                <button name="button" value="<%= product[0]._prid+"^"+user[0]._uid +"^"+ product[0]._image+"^"+product[0]._expiry +"^"+product[0]._name +"^"+product[0]._mrp+"^"+product[0]._manufacturer%>" onchange="this.form.submit()">Add To Cart</button>
+        </form>
+    </div>
+<%- include('partials/footer'); %>

@@ -137,6 +137,7 @@ function searchMedicineGet(req,res){
     let sql="select * from product where _name like '%"+medicinename+"%';";
     medilabDatabse.query(sql,(err,medicines)=>{
         if(err){
+            console.log(err);
             res.status(500).send("Server Error. Try After some time.");
             return;
         }
@@ -144,6 +145,23 @@ function searchMedicineGet(req,res){
         if(medicines.length==0)
             medicinesError="No Such Medicine Exit";
         res.render('userMedicine',{medicines,medicinesError});
+    })
+}
+
+function productGet(req,res){
+    let productId=req.params.productId;
+    let sql='select * from product where _prid=?';
+    medilabDatabse.query(sql,[productId],(err,product)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Server Error. Try After some time.");
+            return;
+        }
+        if(!product[0]._composition.includes(" "))
+            product[0]._composition=product[0]._composition.split(" ");
+        else
+            product[0]._composition=JSON.parse(product[0]._composition);
+        res.render('medicineProduct',{product});
     })
 }
 
@@ -155,5 +173,6 @@ module.exports={
     deleteMedicine,
     updateMedicineGet,
     updateMedicinePost,
-    searchMedicineGet
+    searchMedicineGet,
+    productGet
 }

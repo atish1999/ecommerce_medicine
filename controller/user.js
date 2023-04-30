@@ -67,7 +67,7 @@ function userArticlesGet(req,res){
 }
 
 function addCartPost(req,res){
-    var fullUrl = req.get('referer');
+    let fullUrl = req.get('referer');
     let inputArr=req.body.button.split("^");
     let productId=inputArr[0];
     let userId=inputArr[1];
@@ -104,6 +104,19 @@ function myCartGet(req,res){
     
 }
 
+function deleteFromCartPost(req,res){
+    let cartId=req.body.button;
+    let fullUrl = req.get('referer');
+    let sql='delete from cart where _cartId=?';
+    medilabDatabase.query(sql,[cartId],(err,result)=>{
+        if(err){
+            res.status(500).send("Server Error. Try after some time.");
+            return;
+        }
+        res.redirect(fullUrl);
+    })
+}
+
 
 module.exports={
     userGet,
@@ -111,5 +124,6 @@ module.exports={
     userHome,
     userArticlesGet,
     addCartPost,
-    myCartGet
+    myCartGet,
+    deleteFromCartPost
 }
