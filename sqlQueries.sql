@@ -97,6 +97,22 @@ CREATE TABLE IF NOT EXISTS cart(
     FOREIGN KEY (_uid) REFERENCES users(_uid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS transaction(
+    _tid int PRIMARY KEY AUTO_INCREMENT,
+    _uid int,
+    _oid int,
+    _prid int,
+    _date DATE,
+    _quantity int,
+    _name varchar(100),
+    _mrp int,
+    _manufacturer varchar(100),
+    _status varchar(15),
+    FOREIGN KEY (_prid) REFERENCES product(_prid) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (_uid) REFERENCES users(_uid) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (_oid) REFERENCES shopowner(_oid) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 --Modifying database
 
 

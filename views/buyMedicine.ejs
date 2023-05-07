@@ -1,0 +1,22 @@
+<%- include('partials/header'); %>
+    <title><%= product[0]._name %></title>
+<%- include('partials/userNavBar')%>
+    
+    <h2>User Info:</h2>
+    <h2><%= user[0]._name %></h2>
+    <h3><%= user[0]._address %></h3>
+    <h3><%= user[0]._phno %></h3>
+    <br><br><br>
+    <h2>Product Info:</h2>
+    <h2><%= product[0]._name %></h2>
+    <h2>Quantity : <%= quantity %></h2>
+    <h3>Total Price : <%= price %></h3>
+
+    <div class="buyMedicine">
+        <form action="/user/product/purchase" method="post">
+            <button name="purchaseMedicine" value="<%= user[0]._uid+"^"+product[0]._prid+"^"+product[0]._oid+"^"+quantity+"^"+product[0]._name+"^"+product[0]._mrp+"^"+product[0]._manufacturer +"^"+product[0]._quantity %>">Buy</button>
+        </form>
+    </div>
+
+    
+<%- include('partials/footer'); %>

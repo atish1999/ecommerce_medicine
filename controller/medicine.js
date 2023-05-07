@@ -3,7 +3,7 @@ const {JWT_SECRET}=require('../config');
 const path=require('path');
 const medilabDatabse=require('../models/db');
 const bcrypt=require("bcrypt");
-const {uploadMedicine,formatDate}=require('./utilityFunctions');
+const {uploadMedicine,formatDate,getTodayDate}=require('./utilityFunctions');
 const fs=require('fs');
 const { type } = require('os');
 
@@ -165,6 +165,73 @@ function productGet(req,res){
     })
 }
 
+function buyMedicineGet(req,res){
+    let url=decodeURIComponent(req.url);
+    let searchQuery=url.split('?');
+    let queries=searchQuery[1].split('&');
+    let quantity=queries[0].split('=')[1];
+    let idQuery=queries[1].split('=')[1];
+    let ids=idQuery.split('^');
+    let userId=ids[0];
+    let productId=ids[1];
+    let ownerId=ids[2];
+    // console.log(quantity,userId,productId,ownerId);
+    let sql='select * from product where _prid=?';
+    medilabDatabse.query(sql,[productId],(err,product)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Server Error. Try After some time.");
+            return;
+        }
+        // will handle it later
+        if(quantity>product[0]._quantity){
+            let message='Quantity is more than available quantity';
+            res.locals.message=message;
+            if(!product[0]._composition.includes(" "))
+                product[0]._composition=product[0]._composition.split(" ");
+            else
+                product[0]._composition=JSON.parse(product[0]._composition);
+            res.render('medicineProduct',{product});
+            return;
+        }
+        let price=product[0]._mrp*quantity;
+        res.render('buyMedicine',{product,quantity,price});
+    })
+}
+
+function purchaseProductPost(req,res){
+    let purchaseMedicine=req.body.purchaseMedicine.split('^');
+    let userId=purchaseMedicine[0];
+    let productId=purchaseMedicine[1];
+    let ownerId=purchaseMedicine[2];
+    let quantity=purchaseMedicine[3];
+    let name=purchaseMedicine[4];
+    let mrp=purchaseMedicine[5];
+    let manufacturer=purchaseMedicine[6];
+    let oldQuantiy=purchaseMedicine[7];
+    let date=getTodayDate();
+    let status='pending';
+    let sql='insert into transaction(_uid,_oid,_prid,_date,_quantity,_name,_mrp,_manufacturer,_status) values(?,?,?,?,?,?,?,?,?);';
+    medilabDatabse.query(sql,[userId,ownerId,productId,date,quantity,name,mrp,manufacturer,status],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Server Error. Try After some time.");
+            return;
+        }
+        console.log('first query');
+        let sql='update product set _quantity=?-? where _prid=?';
+        medilabDatabse.query(sql,[oldQuantiy,quantity,productId],(err,result)=>{
+            if(err){
+                console.log(err);
+                res.status(500).send("Server Error. Try After some time.");
+                return;
+            }
+            console.log('second query');
+            res.redirect('/user');
+        })
+    })
+}
+
 
 module.exports={
     addMedicineGet,
@@ -174,5 +241,7 @@ module.exports={
     updateMedicineGet,
     updateMedicinePost,
     searchMedicineGet,
-    productGet
+    productGet,
+    buyMedicineGet,
+    purchaseProductPost
 }

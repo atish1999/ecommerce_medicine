@@ -138,6 +138,7 @@ function checkUser(req,res,next){
             if(err){
                 console.log(err.message);
                 res.locals.user=null;
+                res.locals.message=null;
                 next();
             }
             else{
@@ -148,9 +149,11 @@ function checkUser(req,res,next){
                     if(err){
                         console.log(err);
                         res.locals.user=null;
+                        res.locals.message=null;
                         next();
                     }
                     res.locals.user=result;
+                    res.locals.message=null;
                     next();
                 })
             }
@@ -158,6 +161,7 @@ function checkUser(req,res,next){
     }
     else{
         res.locals.user=null;
+        res.locals.message=null;
         next();
     }
 }

@@ -25,4 +25,18 @@
                 <button name="button" value="<%= product[0]._prid+"^"+user[0]._uid +"^"+ product[0]._image+"^"+product[0]._expiry +"^"+product[0]._name +"^"+product[0]._mrp+"^"+product[0]._manufacturer%>" onchange="this.form.submit()">Add To Cart</button>
         </form>
     </div>
+    <hr>
+    <br><br><br>
+    <% if (message!=null) { %>
+     <h2><%= message %></h2>
+    <% } %>
+    <div class="buyMedicine">
+        <form action="/user/product/buy" method="get">
+            <h3>Enter Quantity of Medicine You Want to buy: (* Max 5)</h3>
+            <input name="quantity" type="number" min="1" max="5">
+            <button name="buyMedicine" value="<%= user[0]._uid+"^"+product[0]._prid+"^"+product[0]._oid %>">Buy</button>
+        </form>
+    </div>
+
+    <br><br><br>
 <%- include('partials/footer'); %>

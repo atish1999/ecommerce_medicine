@@ -1,7 +1,7 @@
 const express=require("express");
 const {userHome,userArticlesGet,addCartPost,myCartGet,deleteFromCartPost}=require("../controller/user");
 const {articleReadUser}=require('../controller/article');
-const {searchMedicineGet,productGet}=require('../controller/medicine');
+const {searchMedicineGet,productGet,buyMedicineGet,purchaseProductPost}=require('../controller/medicine');
 
 
 const userRouter=express.Router();
@@ -20,6 +20,12 @@ userRouter.route('/myCart/delete')
 
 userRouter.route('/myCart/:userName/:userId')
     .get(myCartGet);
+
+userRouter.route('/product/buy')
+    .get(buyMedicineGet)
+
+userRouter.route('/product/purchase')
+    .post(purchaseProductPost);
 
 userRouter.route('/product/:productId')
     .get(productGet);
