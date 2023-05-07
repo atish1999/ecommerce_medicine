@@ -105,9 +105,10 @@ CREATE TABLE IF NOT EXISTS transaction(
     _date DATE,
     _quantity int,
     _name varchar(100),
-    _mrp int,
+    _price int,
     _manufacturer varchar(100),
     _status varchar(15),
+    _image varchar(200),
     FOREIGN KEY (_prid) REFERENCES product(_prid) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (_uid) REFERENCES users(_uid) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (_oid) REFERENCES shopowner(_oid) ON DELETE CASCADE ON UPDATE CASCADE

@@ -117,6 +117,19 @@ function deleteFromCartPost(req,res){
     })
 }
 
+function userOrderGet(req,res){
+    let userId=req.params.userId;
+    console.log(userId);
+    let sql='select * from transaction where _uid=?';
+    medilabDatabase.query(sql,[userId],(err,orders)=>{
+        if(err){
+            res.status(500).send("Server Error. Try after some time.");
+            return;
+        }
+        res.render('userOrder',{orders});
+    })
+}
+
 
 module.exports={
     userGet,
@@ -125,5 +138,6 @@ module.exports={
     userArticlesGet,
     addCartPost,
     myCartGet,
-    deleteFromCartPost
+    deleteFromCartPost,
+    userOrderGet
 }

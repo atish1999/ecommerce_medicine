@@ -1,0 +1,17 @@
+<%- include('partials/header'); %>
+    <title>Medilab</title>
+<%- include('partials/userNavBar')%>
+    <div class="articles">
+        <% for( let index = 0; index < orders.length; index++ ) { %>
+            <div class="article">
+                <img src="/uploads/<%=orders[index]._image%>" class="blogImg" alt="">
+                <h5><%= orders[index]._date.toDateString() %></h5>
+                <h1><%= orders[index]._name %></h1>
+                <h3>Quantity Ordered: <%= orders[index]._quantity %></h3>
+                <h3>Total Price: <%= orders[index]._price %></h3>
+                <h3>Manufactured By: <%= orders[index]._manufacturer %></h3>
+                <h3><%= orders[index]._status %></h3>
+            </div>
+        <% } %>
+    </div>
+<%- include('partials/footer'); %>

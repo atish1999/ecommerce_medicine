@@ -206,19 +206,19 @@ function purchaseProductPost(req,res){
     let ownerId=purchaseMedicine[2];
     let quantity=purchaseMedicine[3];
     let name=purchaseMedicine[4];
-    let mrp=purchaseMedicine[5];
+    let price=purchaseMedicine[5];
     let manufacturer=purchaseMedicine[6];
     let oldQuantiy=purchaseMedicine[7];
+    let image=purchaseMedicine[8];
     let date=getTodayDate();
     let status='pending';
-    let sql='insert into transaction(_uid,_oid,_prid,_date,_quantity,_name,_mrp,_manufacturer,_status) values(?,?,?,?,?,?,?,?,?);';
-    medilabDatabse.query(sql,[userId,ownerId,productId,date,quantity,name,mrp,manufacturer,status],(err,result)=>{
+    let sql='insert into transaction(_uid,_oid,_prid,_date,_quantity,_name,_price,_manufacturer,_status,_image) values(?,?,?,?,?,?,?,?,?,?);';
+    medilabDatabse.query(sql,[userId,ownerId,productId,date,quantity,name,price,manufacturer,status,image],(err,result)=>{
         if(err){
             console.log(err);
             res.status(500).send("Server Error. Try After some time.");
             return;
         }
-        console.log('first query');
         let sql='update product set _quantity=?-? where _prid=?';
         medilabDatabse.query(sql,[oldQuantiy,quantity,productId],(err,result)=>{
             if(err){
@@ -226,7 +226,6 @@ function purchaseProductPost(req,res){
                 res.status(500).send("Server Error. Try After some time.");
                 return;
             }
-            console.log('second query');
             res.redirect('/user');
         })
     })

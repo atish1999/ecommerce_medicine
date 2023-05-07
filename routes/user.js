@@ -1,5 +1,5 @@
 const express=require("express");
-const {userHome,userArticlesGet,addCartPost,myCartGet,deleteFromCartPost}=require("../controller/user");
+const {userHome,userArticlesGet,addCartPost,myCartGet,deleteFromCartPost,userOrderGet}=require("../controller/user");
 const {articleReadUser}=require('../controller/article');
 const {searchMedicineGet,productGet,buyMedicineGet,purchaseProductPost}=require('../controller/medicine');
 
@@ -14,6 +14,9 @@ userRouter.route('/searchMedicine')
 
 userRouter.route('/addCart')
     .post(addCartPost);
+
+userRouter.route('/orders/:userId')
+    .get(userOrderGet)
 
 userRouter.route('/myCart/delete')
     .post(deleteFromCartPost);
