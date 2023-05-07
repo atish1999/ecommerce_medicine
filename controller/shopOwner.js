@@ -50,8 +50,22 @@ function shopOwnerHome(req,res){
     res.render('shopOwner',{userName});
 }
 
+function shopOwnerReportGet(req,res){
+    let ownerId=req.params.ownerId;
+    console.log(ownerId);
+    let sql='select * from transaction where _oid=?';
+    medilabDatabase.query(sql,[ownerId],(err,orders)=>{
+        if(err){
+            res.status(500).send('Server Error. Try after some time.');
+            return;
+        }
+        res.render('shopOwnerReport',{orders})
+    })
+}
+
 module.exports={
     shopOwnerGet,
     shopOwnerPost,
-    shopOwnerHome
+    shopOwnerHome,
+    shopOwnerReportGet
 }
