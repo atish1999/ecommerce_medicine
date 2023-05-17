@@ -4,7 +4,7 @@
     
     <h2>User Info:</h2>
     <h2><%= user[0]._name %></h2>
-    <h3><%= user[0]._address %></h3>
+    <h3><%= user[0]._address.replaceAll("^",", ") %></h3>
     <h3><%= user[0]._phno %></h3>
     <br><br><br>
     <h2>Product Info:</h2>
@@ -14,7 +14,7 @@
 
     <div class="buyMedicine">
         <form action="/user/product/purchase" method="post">
-            <button name="purchaseMedicine" value="<%= user[0]._uid+"^"+product[0]._prid+"^"+product[0]._oid+"^"+quantity+"^"+product[0]._name+"^"+price+"^"+product[0]._manufacturer +"^"+product[0]._quantity+"^"+product[0]._image %>">Buy</button>
+            <button name="purchaseMedicine" value="<%= user[0]._uid+"^"+product[0]._prid+"^"+product[0]._oid+"^"+quantity+"^"+product[0]._name+"^"+price+"^"+product[0]._manufacturer +"^"+product[0]._quantity+"^"+product[0]._image+"^"+user[0]._email %>">Buy</button>
         </form>
     </div>
 

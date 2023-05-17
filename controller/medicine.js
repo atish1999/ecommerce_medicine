@@ -3,7 +3,7 @@ const {JWT_SECRET}=require('../config');
 const path=require('path');
 const medilabDatabse=require('../models/db');
 const bcrypt=require("bcrypt");
-const {uploadMedicine,formatDate,getTodayDate}=require('./utilityFunctions');
+const {uploadMedicine,formatDate,getTodayDate,sendMailUtil}=require('./utilityFunctions');
 const fs=require('fs');
 const { type } = require('os');
 
@@ -210,6 +210,7 @@ function purchaseProductPost(req,res){
     let manufacturer=purchaseMedicine[6];
     let oldQuantiy=purchaseMedicine[7];
     let image=purchaseMedicine[8];
+    let userEmail=purchaseMedicine[9];
     let date=getTodayDate();
     let status='pending';
     let sql='insert into transaction(_uid,_oid,_prid,_date,_quantity,_name,_price,_manufacturer,_status,_image) values(?,?,?,?,?,?,?,?,?,?);';
@@ -226,6 +227,8 @@ function purchaseProductPost(req,res){
                 res.status(500).send("Server Error. Try After some time.");
                 return;
             }
+            sendMailUtil(userEmail,'Thank You For Your Order',`Thank You for buying.\n Your Order Summary:\n ${name}\n ${quantity}`);
+
             res.redirect('/user');
         })
     })
