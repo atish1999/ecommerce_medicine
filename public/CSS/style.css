@@ -8,22 +8,21 @@ button{
 }
 
 .articles{
-    margin: 3rem;
-    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
     flex-wrap: wrap;
 }
 
 .article{
-    height: 20rem;
-    width: 20rem;
+    height: 30rem;
+    width: 25%;
     color: green;
+    margin: 1rem;
 }
 
 .blogImg{
     height: 50%;
     width: 100%;
-}
-
-.medicineLink{
-    text-decoration: none;
 }

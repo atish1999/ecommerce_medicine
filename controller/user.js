@@ -119,7 +119,6 @@ function deleteFromCartPost(req,res){
 
 function userOrderGet(req,res){
     let userId=req.params.userId;
-    console.log(userId);
     let sql='select * from transaction where _uid=?';
     medilabDatabase.query(sql,[userId],(err,orders)=>{
         if(err){

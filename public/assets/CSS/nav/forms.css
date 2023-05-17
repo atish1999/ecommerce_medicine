@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Mukta:wght@300&family=Tapestry&display=swap');
+/* font-family: 'Caveat', cursive;
+font-family: 'Mukta', sans-serif;
+font-family: 'Tapestry', cursive; */
+
+
+
+.outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    width: 40vw;
+    margin: auto;
+}
+
+.container{
+    padding: 1.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.error-message{
+    width: 80%;
+    background-color: rgb(153, 32, 32);
+    border: 2px solid #c0afaf;
+    border-radius: 10px;
+    color: #c0afaf;
+    margin-left: 2rem;
+    padding: 5px;
+}
+
+.middle{
+    width: 100%;
+    background-color: rgba(155, 23, 23, 0.7);
+    padding: 2rem 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form{
+    width: 100%;
+}
+
+.element{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem auto;
+}
+
+.selection{
+    display: flex;
+    flex-direction: row;
+}
+
+label,legend{
+    margin: 0rem 0rem 0.6rem 0rem;
+    font-size: 120%;
+    padding-left: 0.3rem;
+    color: #fff;
+}
+
+input,select{
+    padding: 0.6rem 0.3rem;
+    font-size: 90%;
+    border-radius: 8px;
+}
+
+option{
+    font-size: 120%;
+}
+
+textarea{
+    border-radius: 8px;
+    padding: 0.5rem 0.5rem;
+    font-size: 120%;
+}
+
+a{
+    text-decoration: underline;
+    color: #fff;
+}
+
+a:hover{
+    text-decoration: none;
+    color: rgb(16, 47, 126)
+}
+
+.links{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 120%;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem auto;
+}
+
+button{
+    font-family: 'Tapestry', cursive;
+    border-radius: 8px;
+    padding: 0.6rem;
+    font-size: 100%;
+    background-color: #3b8335;
+    width: 60%;
+}
+
+.search-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+}

@@ -7,16 +7,25 @@
                 <img src="/uploads/<%=articles[index]._image%>" class="blogImg" alt="">
                 <h5><%= articles[index]._date.toDateString() %></h5>
                 <h1><%= articles[index]._title %></h1>
-                <h3><%= articles[index]._content.substring(0,15)+"..." %><a href="/doctor/articles/<%= articles[index]._bid %>">Read more ...</a></h3>
-                <div class="edit">
-                    <form action="/doctor/articles/edit/<%= articles[index]._bid %>">
-                            <button>Edit</button>
-                    </form>
-                </div>
-                <div class="delete">
-                    <form action="/doctor/articles/delete" method="post">
-                            <button name="button" value="<%= articles[index]._bid+"^"+articles[index]._image %>" onchange="this.form.submit()">Delete</button>
-                    </form>
+                <h3><%= articles[index]._content.substring(0,15)+"..." %><a href="/doctor/articles/<%= articles[index]._bid %>" style="color: #102f7e;">Read more ...</a></h3>
+                
+                <div class="article-modify" style="display: flex; margin-left: 10px;">
+                    <div class="edit" style="width:100px;">
+                        <form action="/doctor/articles/edit/<%= articles[index]._bid %>">
+                                <button  style="background-color:white; border:none">
+                                <i class="fa fa-edit" style="font-size: 42px; color: blue;"></i>
+                                </button>
+                        </form>
+                    </div>
+                    <div class="delete" style="width:100px; margin-left: 0.5rem;">
+                        <form action="/doctor/articles/delete" method="post">
+                                <button name="button" value="<%= articles[index]._bid+"^"+articles[index]._image %>" onchange="this.form.submit()" 
+                                    style="background-color:white; border:none"
+                                    >
+                                    <i class="fa fa-remove" style="font-size: 42px; color: red;"></i>
+                                </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         <% } %>

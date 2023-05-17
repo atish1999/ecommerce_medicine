@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 2rem 6rem 2rem 6rem;
-    background-color: #AA5656;
+    background-color: #E76161;
 }
 
 .company,.options{
@@ -23,4 +23,9 @@
     text-decoration: none;
     font-size: 120%;
     color: white;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
 }

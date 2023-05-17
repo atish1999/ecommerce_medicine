@@ -1,9 +1,9 @@
 <%- include('partials/header'); %>
     <title>Medilab</title>
 <%- include('partials/userNavBar')%>
-    <form action="/user/searchMedicine" method="get">
-        <input type="text" name="medicinename" class="searchMedicine" placeholder="Search Medicine">
-        <button class="submitMedicine">Search</button>
+    <form action="/user/searchMedicine" method="get" style="display: flex;">
+        <input class="form-control mr-sm-2" type="text" name="medicinename" placeholder="Search Medicine" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     <% if (medicinesError!=="") { %>
         <h1>No such medicine exist</h1>

@@ -7,8 +7,10 @@
                 <img src="/uploads/<%=articles[index]._image%>" class="blogImg" alt="">
                 <h5><%= articles[index]._date.toDateString() %></h5>
                 <h1><%= articles[index]._title %></h1>
-                <h3><%= articles[index]._content.substring(0,15)+"..." %><a href="/user/articles/<%= articles[index]._bid %>">Read more ...</a></h3>
+                <h3><%= articles[index]._content.substring(0,20)+"..." %> <a href="/user/articles/<%= articles[index]._bid %>" 
+                style="color: #102f7e;">Read more ...</a></h3>
             </div>
         <% } %>
     </div>
+    
 <%- include('partials/footer'); %>
