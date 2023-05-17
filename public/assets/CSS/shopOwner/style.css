@@ -1,0 +1,15 @@
+.addBox {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.dataInput {
+    width: 50%;
+    margin: 0.5rem;
+}
+
+.cmpbtn {
+    border-radius: 20px;
+    width: 100px;
+}

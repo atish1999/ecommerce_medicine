@@ -1,22 +1,72 @@
 <%- include('partials/header'); %>
-    <title>Add Medicine</title>
+<title>Add Medicine</title>
 <%- include('partials/shopOwnerNavBar')%>
-    <form action="/shopOwner/add" method="post" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Enter Medicine Name" required>
-        <input type="number" min="5" step="5" name="quantity" placeholder="Enter Quantity" required>
-        <input type="text" name="mrp" placeholder="Enter Price for each pack" required>
-        <input type="number" name="tablets" placeholder="Enter No. of Tablets per Strip" required>
-        <input type="file" name="medicineimage" accept="image/*">
-        <input type="text" name="manufacturer" placeholder="Enter manufacturer Name">
-        <ul class="comp">
-            <input type="text" id="compsition" name="composition" placeholder="Enter Medicine Compostion">
-        </ul>
-        <button class="addcomp">Add More Composition</button>
-        <input type="date" name="expdate" placeholder="Enter Expiry Date" pattern="\d{2}-\d{2}-\d{4}">
-        <textarea name="use" cols="30" rows="10"></textarea>
-        <textarea name="benefits" cols="30" rows="10"></textarea>
-        <button>Add</button>
-    </form>
+<form action="/shopOwner/add" method="post" enctype="multipart/form-data">
+  <div class="container addBox">
+    <input
+      type="text"
+      name="name"
+      placeholder="Enter Medicine Name"
+      class="dataInput"
+      required
+    />
+    <input
+      class="dataInput"
+      type="number"
+      min="5"
+      step="5"
+      name="quantity"
+      placeholder="Enter Quantity"
+      required
+    />
+    <input
+      class="dataInput"
+      type="text"
+      name="mrp"
+      placeholder="Enter Price for each pack"
+      required
+    />
+    <input
+      class="dataInput"
+      type="number"
+      name="tablets"
+      placeholder="Enter No. of Tablets per Strip"
+      required
+    />
+    <input
+      class="dataInput"
+      type="file"
+      name="medicineimage"
+      accept="image/*"
+    />
+    <input
+      class="dataInput"
+      type="text"
+      name="manufacturer"
+      placeholder="Enter manufacturer Name"
+    />
+    <ul class="comp dataInput">
+      <input
+        type="text"
+        id="compsition"
+        name="composition"
+        placeholder="Enter Medicine Compostion"
+      />
+    </ul>
+    <button class="addcomp dataInput cmpbtn">
+      <i class="fa fa-plus"> Add More Composition </i>
+    </button>
+    <input
+      type="date"
+      name="expdate"
+      placeholder="Enter Expiry Date"
+      pattern="\d{2}-\d{2}-\d{4}"
+    />
+    <textarea class="dataInput" name="use" cols="30" rows="10"></textarea>
+    <textarea class="dataInput" name="benefits" cols="30" rows="10"></textarea>
+    <button>Add</button>
+  </div>
+</form>
 
-    <script src="/js/addComposition.js"></script>
+<script src="/js/addComposition.js"></script>
 <%- include('partials/footer'); %>
