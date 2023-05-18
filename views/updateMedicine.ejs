@@ -10,21 +10,44 @@
     </div>
 
     <form action="/shopOwner/stocks/edit/<%= product[0]._prid %>" method="post" enctype="multipart/form-data">
-        <input type="text" name="name" value="<%= product[0]._name %>">
-        <input type="number" min="5" name="quantity" value="<%= product[0]._quantity %>">
-        <input type="text" name="mrp" value="<%= product[0]._mrp %>">
-        <input type="number" name="tablets" value="<%= product[0]._tabletsperpiece %>">
-        <input type="file" name="medicineimage" accept="image/*">
-        <input type="text" name="manufacturer" value="<%= product[0]._manufacturer %>">
-        <ul class="comp">
+        <div class="container addBox" style="background-color: #E76161; margin-top: 3rem; border-radius: 18px;">
+        
+        <label for="name">Name of Medicine:</label>
+        <input type="text" name="name" value="<%= product[0]._name %>" class="dataInput" style="width:80%">
+
+        <label for="number">Quantity:</label>
+        <input type="number" class="dataInput" min="5" step="5" name="quantity" value="<%= product[0]._quantity %>" style="width:80%">
+
+        <label for="name">MRP of each Pack:</label>
+        <input style="width:80%" type="text" class="dataInput" name="mrp" value="<%= product[0]._mrp %>">
+
+        <label for="name">Tablets in Each pack:</label>
+        <input style="width:80%" type="number" class="dataInput" name="tablets" value="<%= product[0]._tabletsperpiece %>">
+
+        <label for="name">Medicine Image:</label>
+        <input style="width:80%" type="file" class="dataInput" name="medicineimage" accept="image/*">
+
+        <label for="name">Manufacturer:</label>
+        <input style="width:80%" type="text" class="dataInput" name="manufacturer" value="<%= product[0]._manufacturer %>">
+
+        <label for="name">Composition:</label>
+        <ul class="comp dataInput">
             <% for( let index = 0; index < product[0]._composition.length; index++ ) { %>
-                <input type="text" id="compsition" name="composition" value="<%= product[0]._composition[index] %>">
+                <input style="width:60%; margin-bottom : 8px;" type="text" id="compsition" name="composition" value="<%= product[0]._composition[index] %>">
             <% } %>
         </ul>
-        <button class="addcomp">Add More Composition</button>
-        <input type="date" name="expdate" value="<%= product[0]._expiry %>" pattern="\d{2}-\d{2}-\d{4}">
-        <textarea name="use" cols="30" rows="10"><%= product[0]._use %></textarea>
-        <textarea name="benefits" cols="30" rows="10"><%= product[0]._benefits %></textarea>
-        <button name="button" value="<%= product[0]._image %>" onchange="this.form.submit()">Update</button>
+        <button class="addcomp dataInput cmpbtn" style="width:30%">
+            <i class="fa fa-plus">Add More Composition</i>
+        </button>
+        
+        <label for="name">Expiry:</label>
+        <input type="date" name="expdate" value="<%= product[0]._expiry %>" pattern="\d{2}-\d{2}-\d{4}" style="width:80%">
+
+        <label for="name">Use:</label>
+        <textarea style="width:80%" name="use" class="dataInput" cols="30" rows="10"><%= product[0]._use %></textarea>
+
+        <label for="name">Benefits:</label>
+        <textarea style="width:80%" name="benefits" class="dataInput" cols="30" rows="10"><%= product[0]._benefits %></textarea>
+        <button style="margin-top: 1rem;" name="button" value="<%= product[0]._image %>" onchange="this.form.submit()">Update</button>
     </form>
 <%- include('partials/footer'); %>

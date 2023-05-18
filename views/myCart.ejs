@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="cart-price">
-                                <div class="cart-amount">₹<%= products[index]._mrp %></div>
+                                <div class="cart-amount">MRP: ₹<%= products[index]._mrp %></div>
                                 <div class="remove">
                                     <form action="/user/myCart/delete" method="post">
                                             <button name="button" value="<%= products[index]._cartId%>" onchange="this.form.submit()">Remove From Cart</button>

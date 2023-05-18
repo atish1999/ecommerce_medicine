@@ -5,6 +5,8 @@ btn.addEventListener('click',(e)=>{
     let newNode=document.createElement('input');
     newNode.type='text';
     newNode.name="composition";
-    newNode.placeholder="Enter Composition Name";
+    newNode.placeholder="Enter Medicine Compostion";
+    newNode.style.width='60%';
+    newNode.style.marginBottom='8px';
     parent.appendChild(newNode);
 })

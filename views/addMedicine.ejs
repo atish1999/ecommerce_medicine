@@ -2,14 +2,17 @@
 <title>Add Medicine</title>
 <%- include('partials/shopOwnerNavBar')%>
 <form action="/shopOwner/add" method="post" enctype="multipart/form-data">
-  <div class="container addBox">
+  <div class="container addBox" style="background-color: #E76161; margin-top: 3rem; border-radius: 18px;">
+    <label for="name">Name of Medicine:</label>
     <input
       type="text"
       name="name"
       placeholder="Enter Medicine Name"
       class="dataInput"
       required
+      style="width:80%"
     />
+    <label for="number">Quantity:</label>
     <input
       class="dataInput"
       type="number"
@@ -18,53 +21,68 @@
       name="quantity"
       placeholder="Enter Quantity"
       required
+      style="width:80%"
     />
+    <label for="name">MRP of each Pack:</label>
     <input
       class="dataInput"
       type="text"
       name="mrp"
       placeholder="Enter Price for each pack"
       required
+      style="width:80%"
     />
+    <label for="name">Tablets in Each pack:</label>
     <input
       class="dataInput"
       type="number"
       name="tablets"
       placeholder="Enter No. of Tablets per Strip"
       required
+      style="width:80%"
     />
+    <label for="name">Medicine Image:</label>
     <input
       class="dataInput"
       type="file"
       name="medicineimage"
       accept="image/*"
+      style="width:80%"
     />
+    <label for="name">Manufacturer:</label>
     <input
       class="dataInput"
       type="text"
       name="manufacturer"
       placeholder="Enter manufacturer Name"
+      style="width:80%"
     />
+    <label for="name">Composition:</label>
     <ul class="comp dataInput">
       <input
         type="text"
         id="compsition"
         name="composition"
         placeholder="Enter Medicine Compostion"
+        style="width:60%; margin-bottom : 8px;"
       />
     </ul>
-    <button class="addcomp dataInput cmpbtn">
+    <button class="addcomp dataInput cmpbtn" style="width: 30%;">
       <i class="fa fa-plus"> Add More Composition </i>
     </button>
+    <label for="name">Expiry:</label>
     <input
       type="date"
       name="expdate"
       placeholder="Enter Expiry Date"
       pattern="\d{2}-\d{2}-\d{4}"
+      style="width:80%"
     />
-    <textarea class="dataInput" name="use" cols="30" rows="10"></textarea>
-    <textarea class="dataInput" name="benefits" cols="30" rows="10"></textarea>
-    <button>Add</button>
+    <label for="name">Use:</label>
+    <textarea class="dataInput" name="use" cols="30" rows="10" style="width:80%"></textarea>
+    <label for="name">Benefits:</label>
+    <textarea class="dataInput" name="benefits" cols="30" rows="10" style="width:80%"></textarea>
+    <button style="margin-top: 1rem;">Add</button>
   </div>
 </form>
 

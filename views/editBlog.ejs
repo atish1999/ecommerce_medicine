@@ -10,10 +10,27 @@
     </div>
 
     <form action="/doctor/articles/edit/<%= article[0]._bid %>" method="post" enctype="multipart/form-data">
-        <input type="text" name="blogtitle" value="<%= article[0]._title %>">
-        <input type="file" name="blogimage" accept="image/*" placeholder="Enter Blog Image">
-        <textarea name="blogcontent" cols="50" rows="10"><%= article[0]._content %></textarea>
-        <button name="button" value="<%= article[0]._image %>" onchange="this.form.submit()">Update</button>
+        <div class="conatainer-fluid" 
+             style="
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             align-items: center;
+             border: 2px solid;
+             border-radius: 1rem;
+             margin: 12%;
+             margin-top: 5%;
+             width: 50%;
+             margin-left: 25%;
+             height: 50%;
+             padding:3rem;
+             background-color: #D6E8DB;
+            "
+        >
+        <input type="text" name="blogtitle" value="<%= article[0]._title %>" style="width: 75%; margin-top: 1rem;">
+        <input type="file" name="blogimage" accept="image/*" placeholder="Enter Blog Image" style="width: 75%;">
+        <textarea name="blogcontent" cols="50" rows="10" style="width: 75%;"><%= article[0]._content %></textarea>
+        <button name="button" value="<%= article[0]._image %>" onchange="this.form.submit()" style="width: 25%; margin: 2rem; background-color: #e76161;">Update</button>
     </form>
     
 <%- include('partials/footer'); %>

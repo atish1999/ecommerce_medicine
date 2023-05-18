@@ -26,3 +26,9 @@ button{
     height: 50%;
     width: 100%;
 }
+
+.stock-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
