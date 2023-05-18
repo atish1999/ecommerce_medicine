@@ -1,22 +1,45 @@
 <%- include('partials/header'); %>
     <title>Medilab</title>
 <%- include('partials/userNavBar')%>
-    <div class="articles">
-        <% for( let index = 0; index < products.length; index++ ) { %>
-            <a class="medicineLink" href="/user/product/<%= products[index]._prid %>">
-                <div class="article">
-                    <img src="/uploads/<%=products[index]._image%>" class="blogImg" alt="">
-                    <h5><%= products[index]._expiry.toDateString() %></h5>
-                    <h1><%= products[index]._name %></h1>
-                    <h3>MRP: <%= products[index]._mrp %></h3>
-                    <h3>Manufactured By: <%= products[index]._manufacturer %></h3>
-                    <div class="delete">
-                        <form action="/user/myCart/delete" method="post">
-                                <button name="button" value="<%= products[index]._cartId%>" onchange="this.form.submit()">Remove From Cart</button>
-                        </form>
+    <div class="articles cart-body">
+
+        <div class="cart-container">
+
+            <div class="cart-Header">
+                <h3 class="cart-Heading">Shopping Cart</h3>
+            </div>
+
+            <% for( let index = 0; index < products.length; index++ ) { %>
+                <a class="medicineLink" href="/user/product/<%= products[index]._prid %>">
+                
+                    <div class="container">
+                        
+                        <div class="row cart-items">
+
+                            <div class="col cart-img">
+                                <img src="/uploads/<%=products[index]._image%>" class="blogImg" alt="">
+                            </div>
+
+                            <div class="col-md-auto cart-about">
+                                <h5><%= products[index]._expiry.toDateString() %></h5>
+                                <h1><%= products[index]._name %></h1>
+                                <h3>Manufactured By: <%= products[index]._manufacturer %></h3>
+                            </div>
+
+                            <div class="cart-price">
+                                <div class="cart-amount">₹<%= products[index]._mrp %></div>
+                                <div class="remove">
+                                    <form action="/user/myCart/delete" method="post">
+                                            <button name="button" value="<%= products[index]._cartId%>" onchange="this.form.submit()">Remove From Cart</button>
+                                    </form>
+                                </div>
+                            </div>
+                        
+                        </div>
+
                     </div>
-                </div>
-            </a>
-        <% } %>
+                </a>
+            <% } %>
+        </div>
     </div>
 <%- include('partials/footer'); %>
