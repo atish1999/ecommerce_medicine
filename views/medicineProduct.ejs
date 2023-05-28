@@ -2,6 +2,7 @@
     <title><%= product[0]._name %></title>
 <%- include('partials/userNavBar')%>
     
+
     <img src="/uploads/<%=product[0]._image%>" class="blogImg" alt="">
     <h1><%= product[0]._name %></h1>
     <h3>Expires on : <%= product[0]._expiry.toDateString() %></h3>
@@ -15,6 +16,7 @@
             <li><%= product[0]._composition[index] %></li>
         <% } %>
     </ul>
+    </div>
     <h2>How To Use : </h2>
     <p><%= product[0]._use %></p>
 
