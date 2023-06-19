@@ -85,7 +85,7 @@ function composePost(req,res){
             })
         })
     } catch (error) {
-        console.log(err);
+        console.log(error);
         res.status(500).send('Server Error. Try after some time.');
     }
     

@@ -19,7 +19,7 @@ font-family: 'Tapestry', cursive; */
     padding: 1.5rem;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: center;
 }
 

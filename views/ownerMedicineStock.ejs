@@ -9,15 +9,17 @@
                 <h1><%= medicines[index]._name %></h1>
                 <h3>MRP per Strip: <%= medicines[index]._mrp%>
                 <h3>Qty: <%= medicines[index]._quantity %></h3>
-                <div class="edit">
-                    <form action="/shopOwner/stocks/edit/<%= medicines[index]._prid %>">
-                            <button>Update</button>
-                    </form>
-                </div>
-                <div class="delete">
-                    <form action="/shopOwner/stocks/delete" method="post">
-                            <button name="button" value="<%= medicines[index]._prid+"^"+medicines[index]._image %>" onchange="this.form.submit()">Delete</button>
-                    </form>
+                <div class="stock-buttons">
+                    <div class="edit" style="width: 40%;">
+                        <form action="/shopOwner/stocks/edit/<%= medicines[index]._prid %>">
+                                <button>Update</button>
+                        </form>
+                    </div>
+                    <div class="delete" style="width: 40%;">
+                        <form action="/shopOwner/stocks/delete" method="post">
+                                <button name="button" value="<%= medicines[index]._prid+"^"+medicines[index]._image %>" onchange="this.form.submit()">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         <% } %>
